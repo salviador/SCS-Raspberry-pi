@@ -1,0 +1,40 @@
+
+[class*="col"]{
+
+  padding: 0.1rem;
+
+  text-align: center;
+
+}
+
+.container {
+  align-items: center;
+}
+
+
+/*
+[class*="col"]{
+  padding: 0.1rem;
+  margin: 0;
+
+  background-color:#33b5e5;
+  border: 2px solid #fff;
+  color: #fff;
+  text-align: left;
+}
+
+[class*="row"]{
+  border: 2px solid red;
+}
+*/
+
+
+/*
+[class*="con"]{
+  padding: 1rem;
+  background-color:#9e33e5;
+  border: 2px solid #fff;
+  color: #fff;
+  text-align: left;
+}
+*/

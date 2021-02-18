@@ -1,0 +1,632 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>SCS Configurazione</title>
+	<meta charset="utf-8" />   
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jul 2002 11:12:01 GMT">    
+<!--
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+-->	
+
+	<link rel="stylesheet" href="site/css/bootstrap.min.css">
+	<script src="site/js/jquery.min.js"></script>
+	<script src="site/js/popper.min.js"></script>
+	<script src="site/js/bootstrap.min.js"></script>
+    <script src="site/js/bootbox.min.js"></script>
+    <script src="site/js/configurazione.js"></script>
+
+	
+    <style>
+    
+ 
+	</style>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Configurazione</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="main.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="test3.html">Test</a>
+                  </li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+    <div class="card" style="margin-top: 13px;" >
+        <div class="card-header bg-info text-white">
+          <div class="container-fluid"> 
+                <div class="row">
+                        <div class="col-2">
+                            <div class="float-left">	
+                                <strong>Nome Attuatore</strong>
+                            </div>			
+                        </div>
+                        <div class="col-3">
+                            <strong>Tipo Attuatore</strong>	
+                        </div>
+
+                        <div class="col-3">
+                            <div class="float-center">
+                                <strong>Indirizzo del Bus </strong>		
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div>Ambiente</div>	
+                                    </div>
+                                    <div class="col-6">
+                                        <div>Punto Luce</div>	
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="float-right">
+                                <strong>  Azione </strong>		
+                            </div>
+                        </div>    
+                </div>
+          </div>
+          
+        </div>
+    </div>
+      
+
+
+
+
+
+
+
+
+
+
+<div id="ChAudioTable">
+
+<!--
+    <div class="container-fluid chaudio_1" style="padding-top: 13px;" > 
+        <div class="row" style="vertical-align: middle;">
+            <div class="col-2">
+                <div class="float-left">			
+                    <div class="form-group row">
+                        <input class="form-control" type="text" value="serranda corridoio" id="example-number-input" name="fname" style="width: 100%;">
+                    </div>                                       
+                </div>
+            </div>
+            <div class="col-3">
+                <select id="cars" name="cars">
+                    <option value="on_off">ON/OFF</option>
+                    <option value="Dimmer">Dimmer</option>
+                    <option value="Serrande_Tapparelle">Serrande/Tapparelle</option>
+                    <option value="Gruppi">Gruppi</option>
+                    <option value="Sensori_Temperatura">Sensori Temperatura</option>
+                    <option value="Termostati">Termostati</option>
+                    <option value="Serrature">Serrature</option>
+                    <option value="Campanello_porta">Campanello porta</option>
+                  </select>
+            </div>
+            <div class="col-3">
+
+
+                <div class="row"  >
+                    <div class="col-6">
+                        <div>                        
+                            <input class="form-control" type="number" value="1" id="addA" style="width: 80%;">
+                        </div>	
+                    </div>
+                    <div class="col-6">
+                        <div>                        
+                            <input class="form-control" type="number" value="1" id="addPL" style="width: 80%;">
+                        </div>	
+                    </div>
+                </div>
+            
+            </div>
+            <div class="col-4">
+                <div class="float-center">	
+
+                    <div class="row CLASS_BLOCK_TIPO_UI">
+                        <div class="col-8">
+                            <div class="float-left">	
+
+                                <div class="row">
+                                    <div class="col-6"> 
+                                        <p style="font-size:0.8em">Timer ms<br>Salita  </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <input class="form-control" type="number" value="1" id="addA" >
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p style="font-size:0.8em">Timer ms<br>Discesa</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <input class="form-control" type="number" value="1" id="addA" >
+                                    </div>
+                                </div>
+
+
+
+                            
+                            
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+    
+                                <div class="float-right">	
+                                    <button type="button" id="nodi_remove_ch_1" class="btn btn-secondary btn-danger rowRemove">Elimina</button>
+                                </div>
+                                        
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+-->
+
+
+
+    <!--
+
+        
+
+
+    <div class="container-fluid chaudio_1" style="padding-top: 13px;" > 
+        <div class="row">
+            <div class="col-2">
+                <div class="float-left">			
+                    <div class="form-group row">
+                        <input class="form-control" type="text" value="" id="example-number-input" name="fname" style="width: 100%;">
+                    </div>                                       
+                </div>
+            </div>
+            <div class="col-3">
+                <select id="cars" name="cars">
+                    <option value="on_off">ON/OFF</option>
+                    <option value="Dimmer">Dimmer</option>
+                    <option value="Serrande_Tapparelle">Serrande/Tapparelle</option>
+                    <option value="Gruppi">Gruppi</option>
+                    <option value="Sensori_Temperatura">Sensori Temperatura</option>
+                    <option value="Termostati">Termostati</option>
+                    <option value="Serrature">Serrature</option>
+                    <option value="Campanello_porta">Campanello porta</option>
+                  </select>
+            </div>
+            <div class="col-4">
+
+
+                <div class="row">
+                    <div class="col-6">
+                        <div>                        
+                            <input class="form-control" type="number" value="1" id="addA" style="width: 80%;">
+                        </div>	
+                    </div>
+                    <div class="col-6">
+                        <div>                        
+                            <input class="form-control" type="number" value="1" id="addPL" style="width: 80%;">
+                        </div>	
+                    </div>
+                </div>
+            
+            </div>
+            <div class="col-3">
+                <div class="float-right">	
+                    <button type="button" id="nodi_remove_ch_1" class="btn btn-secondary btn-danger rowRemove">Elimina</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="card" >
+	<div class="container-fluid bg-light" style="padding-top: 13px;" > 
+		<div class="row">
+			<div class="col-2">
+                <div class="float-left">			
+                    <div class="form-group row">
+                        <input class="form-control" type="text" value="" id="NOME_ATT_NEW" name="fname" style="width: 100%;">
+                    </div>                                       
+                </div>
+			</div>
+            <div class="col-3">
+                <select id="TIPO_ATT_NEW" name="cars">
+                    <option value="ON_OFF">ON/OFF</option>
+                    <option value="Dimmer">Dimmer</option>
+                    <option value="Serrande_Tapparelle">Serrande/Tapparelle</option>
+                    <option value="Gruppi">Gruppi</option>
+                    <option value="Sensori_Temperatura">Sensori Temperatura</option>
+                    <option value="Termostati">Termostati</option>
+                    <option value="Serrature">Serrature</option>
+                    <option value="Campanello_porta">Campanello porta</option>
+                  </select>
+            </div>
+
+            <div class="col-3">
+
+
+                <div class="row">
+                    <div class="col-6">
+                        <div>                        
+                            <input class="form-control" type="number" value="1" id="addA" style="width: 80%;">
+                        </div>	
+                    </div>
+                    <div class="col-6">
+                        <div>                        
+                            <input class="form-control" type="number" value="1" id="addPL" style="width: 80%;">
+                        </div>	
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="float-center">	
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="float-left">	
+                                <div class="row">
+                                    <div class="col-6"> 
+                                    </div>
+                                    <div class="col-6">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                    </div>
+                                    <div class="col-6">
+                                    </div>
+                                </div>                           
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="float-right">	
+                                <button type="button" id="nodi_Aggiungi" class="btn btn-secondary btn-success rowAggiungi">Aggiungi</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+		</div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+
+        //Recupera Lista Nodi dal server
+        $(document).ready(function () {
+            var jqxhr = $.getJSON("GetConfigurazione.json", function (data) {
+                console.log("---------------------------------------------------");
+                //console.log(data);
+                //var count = Object.keys(data).length;
+                //console.log(count);
+
+              //  $('#NodiSetting').empty();                
+                $.each(data, function (key, val) {
+                    //console.log(key);
+                    //console.log(val);
+                    popola_configurazione_attuatori(key,val);
+                    //console.log(val.nome_attuatore);
+                });
+            })
+         .fail(function () {
+             console.log("error");
+         });
+        });
+
+
+
+        $(document).on("click", ".CLASS_TIPOATTUATORE", function () {
+            var nome_attuatore =  $(this).attr('id');
+            var tipo_attuatore =  $(this).val();
+
+            var datas = { 'nome_attuatore': nome_attuatore}; 
+            var data = JSON.stringify(datas);
+
+            var jqxhr = $.post("GetDeviceConfigurazione.json", data, function (v) {
+
+            }).done(function(v){
+                //modifica interfaccia UI
+                setting_CLASS_BLOCK_TIPO_UI(tipo_attuatore, nome_attuatore, JSON.parse(v));
+            });
+
+
+            //Salva
+            var datas = { 'nome_attuatore': nome_attuatore, 'tipo_attuatore': tipo_attuatore}; 
+            var data = JSON.stringify(datas);
+            $.post('AGGIORNA_TIPO_ATTUATORE.json', data, function (response) {
+                // Do something with the request                                
+            }, 'json');
+        });
+        $(document).on("change", ".CLASS_IND_ATTUATORE_A", function () {
+            var nome_attuatore =  $(this).attr('id');
+            var indirizzo_Ambiente =  $(this).val();
+
+            //Salva
+            var datas = { 'nome_attuatore': nome_attuatore, 'indirizzo_Ambiente': indirizzo_Ambiente}; 
+            var data = JSON.stringify(datas);
+            $.post('AGGIORNA_INDIRIZZO_A.json', data, function (response) {
+                // Do something with the request                                
+            }, 'json');
+        });
+        $(document).on("change", ".CLASS_IND_ATTUATORE_PL", function () {
+            var nome_attuatore =  $(this).attr('id');
+            var indirizzo_PL =  $(this).val();
+
+            //Salva
+            var datas = { 'nome_attuatore': nome_attuatore, 'indirizzo_PL': indirizzo_PL}; 
+            var data = JSON.stringify(datas);
+            $.post('AGGIORNA_INDIRIZZO_PL.json', data, function (response) {
+                // Do something with the request                                
+            }, 'json');
+        });
+        $(document).on("change", ".CLASS_NOMEATTUATORE", function () {
+            var nome_attuatore =  $(this).attr('id');
+            var nuovo_nome =  $(this).val();
+            var idemfind = false
+            //richiedi i nomi
+            var jqxhr = $.getJSON("GetConfigurazione.json", function (data) {
+                    $.each(data, function (key, val) {
+                    //console.log(key);
+                    //console.log(val);
+                    if(val.nome_attuatore == nuovo_nome){
+                        idemfind = true;
+                        bootbox.alert("Il Node dell'attuatore è già presente in lista, NoN puossono essere uguali", function(){
+                            location.reload();
+                        });
+
+                    }
+                });                    
+             });
+            if(idemfind==false){
+                //Salva
+                var datas = { 'nome_attuatore': nome_attuatore, 'nuovo_nome': nuovo_nome}; 
+                var data = JSON.stringify(datas);
+                //console.log(datas);
+                $.post('AGGIORNA_NOME_ATTUATORE.json', data, function (response) {
+                    // Do something with the request                                
+                }, 'json');
+                //console.log(nome_attuatore);
+                //console.log(nuovo_nome);
+            }
+            location.reload();
+        });
+
+        //Input x Serrande/tapparelle
+        $(document).on("change", ".CLASS_TIMER_SALITA", function () {
+            var nome_attuatore =  $(this).attr('id');
+            var timer_salita =  $(this).val();
+
+            //Salva
+            var datas = { 'nome_attuatore': nome_attuatore, 'timer_salita': timer_salita}; 
+            var data = JSON.stringify(datas);
+            $.post('AGGIORNA_TIMER_SERRANDETAPPARELLE.json', data, function (response) {
+                // Do something with the request                                
+            }, 'json');
+        });
+        $(document).on("change", ".CLASS_TIMER_DISCESA", function () {
+            var nome_attuatore =  $(this).attr('id');
+            var timer_discesa =  $(this).val();
+
+            //Salva
+            var datas = { 'nome_attuatore': nome_attuatore, 'timer_discesa': timer_discesa}; 
+            var data = JSON.stringify(datas);
+            $.post('AGGIORNA_TIMER_SERRANDETAPPARELLE.json', data, function (response) {
+                // Do something with the request                                
+            }, 'json');
+        });
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+        $(document).on("click", ".rowAggiungi", function (e) {
+            var idemfind = false;
+            var nome_attuatore_new =  $("#NOME_ATT_NEW").val();
+
+            //prima verifica se esiste già un attuatore con lo stesso nome
+            var idemfind = false
+            //richiedi i nomi
+            var jqxhr = $.getJSON("GetConfigurazione.json", function (data) {
+
+             }).done(function(data){
+
+                $.each(data, function (key, val) {
+                    console.log(key);
+                    console.log(val);
+                    if(val.nome_attuatore == nome_attuatore_new){
+                        idemfind = true;
+                    }
+                }); 
+                if(idemfind==false){
+
+                    var tipoatt =  $("#TIPO_ATT_NEW").val();
+                    var add_A =  $("#addA").val();
+                    var add_PL =  $("#addPL").val();
+
+                    var val={
+                        nome_attuatore : nome_attuatore_new , 
+                        tipo_attuatore : tipoatt , 
+                        indirizzo_Ambiente : add_A , 
+                        indirizzo_PL : add_PL , 
+                    };
+                    popola_configurazione_attuatori(nome_attuatore_new, val);
+
+                    //Salva
+                    var data = JSON.stringify(val);
+                    //console.log(datas);
+                    $.post('AGGIUNGI_ATTUATORE.json', data, function (response) {
+                        // Do something with the request                                
+                    }, 'json').done(function(){
+                        $("#NOME_ATT_NEW").val('');
+                        $("#TIPO_ATT_NEW").val('ON_OFF');
+                        $("#addA").val(0);
+                        $("#addPL").val(0);
+                    });
+                }else{
+                    $("#NOME_ATT_NEW").val('');
+                    $("#TIPO_ATT_NEW").val('ON_OFF');
+                    $("#addA").val(0);
+                    $("#addPL").val(0);
+                }
+                     $("#NOME_ATT_NEW").val('');
+                    $("#TIPO_ATT_NEW").val('ON_OFF');
+                    $("#addA").val(0);
+                    $("#addPL").val(0);
+             });
+        });
+
+        
+        $(document).on("click", ".rowRemove", function () {
+            var nome_attuatore = (this.id).toString();
+            
+            var datas = { 'nome_attuatore': nome_attuatore}; 
+            var data = JSON.stringify(datas);
+
+            $.post('RIMUOVI_ATTUATORE.json', data, function (response) {
+                // Do something with the request                                
+            }, 'json');
+
+            $(this).closest('.container-fluid').remove();
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+</html>

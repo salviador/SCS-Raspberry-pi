@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<BSSignalRegistry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>scs_simulation</Name>
+  <Latency>0</Latency>
+  <Signals>
+    <BSSignal>
+      <Name>ON_OFF_on_1</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b8640000dca3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>ON_OFF_off_1</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b8640001dda3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>ON_OFF_on_1_noise</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>74a8b8640001dda3487855</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>ON_OFF_off_1_noise</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>63a8b8640000dca389</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>TRAMA_ESTESA_1</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b8640001dd23742572a3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>TRAMA_ESTESA_2</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b8643201dd158119bfa3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>TRAMA_ESTESA_1noise</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>87a8b8640001dd23742572a3986525</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>TRAMA_ESTESA_2noise</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>74a8b8643201dd158119bfa355</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name />
+      <DataFormat>Hex</DataFormat>
+      <Data />
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>OK</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a5</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name />
+      <DataFormat>Hex</DataFormat>
+      <Data />
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>SERRANDA_1_STOP</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b855120af5a3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>SERRANDA_1_APRI</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b8551208f7a3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>SERRANDA_1_CHIUDI</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b8551209f6a3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name />
+      <DataFormat>Hex</DataFormat>
+      <Data />
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>DIMMER_1_ON</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b8411200eba3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>DIMMER_1_OFF</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b8411201eaa3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>DIMMER_1_STATE_0%</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b841120de6a3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>DIMMER_1_STATE_20%</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b841121df6a3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>DIMMER_1_STATE_50%</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b841124da6a3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>DIMMER_1_STATE_80%</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b841127d96a3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>DIMMER_1_STATE_100%</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b841129d76a3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name />
+      <DataFormat>Hex</DataFormat>
+      <Data />
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>TEMPERATURA_1__25g</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b40230fa7ca3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>TEMPERATURA_1__17g</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b40230b335a3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>TEMPERATURA_2__17g</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b40330fa7da3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>TEMPERATURA_2__25g</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>a8b40330b334a3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name />
+      <DataFormat>Hex</DataFormat>
+      <Data />
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>TERMOSTATO_1a</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>A8D2020304C016000706A3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>TERMOSTATO_1b</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>A8D2020304C012270725A3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>TERMOSTATO_2</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>A8D202030412F2004671A3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>TERMOSTATO_2a</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>A8D20203040E163307FBA3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name>TERMOSTATO_2b</Name>
+      <DataFormat>Hex</DataFormat>
+      <Data>A8D20203040E122707EBA3</Data>
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name />
+      <DataFormat>Hex</DataFormat>
+      <Data />
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name />
+      <DataFormat>Hex</DataFormat>
+      <Data />
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name />
+      <DataFormat>Hex</DataFormat>
+      <Data />
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name />
+      <DataFormat>Hex</DataFormat>
+      <Data />
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name />
+      <DataFormat>Hex</DataFormat>
+      <Data />
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name />
+      <DataFormat>Hex</DataFormat>
+      <Data />
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name />
+      <DataFormat>Hex</DataFormat>
+      <Data />
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+    <BSSignal>
+      <Name />
+      <DataFormat>Hex</DataFormat>
+      <Data />
+      <Latency>0</Latency>
+      <Active>false</Active>
+    </BSSignal>
+  </Signals>
+</BSSignalRegistry>

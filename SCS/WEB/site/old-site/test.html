@@ -1,0 +1,473 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>SCS Test Dispositivi</title>
+	<meta charset="utf-8" />   
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+-->	
+
+	<link rel="stylesheet" href="site/css/bootstrap.min.css">
+	<script src="site/js/jquery.min.js"></script>
+	<script src="site/js/popper.min.js"></script>
+	<script src="site/js/bootstrap.min.js"></script>
+    <script src="site/js/bootbox.min.js"></script>
+
+    <script src="site/js/paho-mqtt.js"></script>
+
+    <link rel="stylesheet" href="site/css/bootstrap-slider.min.css">
+    <script src="site/js/bootstrap-slider.min.js"></script>
+
+    <style>
+      #ex1Slider .slider-selection {
+	        background: #BABABA;
+        }
+	</style>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Test</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="main.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="configurazione.html">Configurazione</a>
+                  </li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+    <div class="card" style="margin-top: 13px;" >
+        <div class="card-header bg-info text-white">
+          <div class="container-fluid"> 
+                <div class="row">
+                        <div class="col-3">
+                            <div class="float-left">	
+                                <strong>Nome Attuatore</strong>
+                            </div>			
+                        </div>
+                        <div class="col-2">
+                            <strong>Tipo Attuatore</strong>	
+                        </div>
+
+                        <div class="col-3">
+                            <div class="float-center" style="width: 80%; text-align: center;">
+                                <div>
+                                    <strong>Indirizzo del Bus </strong>		
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div>Ambiente</div>	
+                                    </div>
+                                    <div class="col-6">
+                                        <div>Punto Luce</div>	
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="float-center" style="width: 80%; text-align: center;">
+                                <strong>  Azione </strong>		
+                            </div>
+                        </div>    
+                </div>
+          </div>
+          
+        </div>
+    </div>
+      
+
+
+
+
+
+
+
+
+
+
+<div id="ChAudioTable">
+
+        
+
+    <!--
+    <div class="container-fluid chaudio_1" style="padding-top: 13px;" > 
+        <div class="row">
+            <div class="col-3">
+
+                <div class="float-left">	
+                    <p class="text-left">Nome Attuatore</p>
+                </div>			
+
+            </div>
+            <div class="col-2">
+                <div class="float-left">	
+                    <p>ON/OFF</p>
+                </div>			
+            </div>
+            <div class="col-3">
+                <div class="float-center" style="width: 80%; text-align: center;">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="float-left">	
+                                <p>6</p>
+                            </div>			
+                        </div>
+                        <div class="col-6">
+                            <div class="float-left">	
+                                <p>2</p>
+                            </div>			
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="float-center">	
+
+                    <div class="row">
+                        <div class="col-4">
+
+                            <span class="mdl-form__icon">
+                                <img id="nodo_55555_ch1" data-icon="switch" src="/site/image/lamp_accesa.svg" style="width:32px;">
+                            </span>
+
+                        </div>
+
+                        <div class="col-8">
+                            <div class="float-center">	
+    
+                                <button type="button" class="btn btn-success">On</button>
+                                <button type="button" class="btn btn-primary">T</button>
+                                <button type="button" class="btn btn-danger">Off</button>                           
+                        
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="/site/js/test.js"></script>
+
+    <script>
+
+    var listaDevices;
+
+        //Recupera Lista Nodi dal server
+        $(document).ready(function () {
+            var jqxhr = $.getJSON("GetConfigurazione.json", function (data) {
+                //console.log("---------------------------------------------------");
+                //console.log(data);
+                //var count = Object.keys(data).length;
+                //console.log(count);
+
+              //  $('#NodiSetting').empty();                
+                listaDevices =  data;
+
+                $.each(data, function (key, val) {
+                    popola_Test_attuatori(key,val);
+                });
+            })
+         .fail(function () {
+             console.log("error");
+         });
+        });
+
+
+        //ATTUATORI TIPO ON/OFF
+        $(document).on("click", ".CLASS_T_ONOFF_ON", function () {
+            var nome_attuatore =  $(this).attr('id');
+
+            message = new Paho.MQTT.Message("On");
+            message.destinationName = "/scsshield/device/" + nome_attuatore + "/switch";
+            client.send(message);
+        });
+        $(document).on("click", ".CLASS_T_ONOFF_TOGGLE", function () {
+            var nome_attuatore =  $(this).attr('id');
+
+            message = new Paho.MQTT.Message("t");
+            message.destinationName = "/scsshield/device/" + nome_attuatore + "/switch";
+            client.send(message);
+        });
+        $(document).on("click", ".CLASS_T_ONOFF_OFF", function () {
+            var nome_attuatore =  $(this).attr('id');
+
+            message = new Paho.MQTT.Message("Off");
+            message.destinationName = "/scsshield/device/" + nome_attuatore + "/switch";
+            client.send(message);
+        });
+        //ATTUATORI TIPO SERRANDE TAPPARELLE
+        $(document).on("change", ".CLASS_T_SERRANDA_RANGE", function () {
+            var nome_attuatoreraw =  $(this).attr('id');
+            var percentuale =  $(this).val();
+            var nome_attuatore = nome_attuatoreraw.substring(15);
+
+            console.log(nome_attuatore);
+
+            message = new Paho.MQTT.Message(percentuale);
+            message.destinationName = "/scsshield/device/" + nome_attuatore + "/percentuale";
+            client.send(message);
+        });
+
+        //ATTUATORI TIPO DIMMER
+        $(document).on("change", ".CLASS_T_DIMMER_RANGE", function () {
+            var nome_attuatoreraw =  $(this).attr('id');
+            var percentuale =  $(this).val();
+            var nome_attuatore = nome_attuatoreraw.substring(15);
+
+            message = new Paho.MQTT.Message(percentuale);
+            message.destinationName = "/scsshield/device/" + nome_attuatore + "/dimmer";
+            client.send(message);
+        });
+        $(document).on("click", ".CLASS_T_DIMMER_ONOFF", function () {
+            var nome_attuatore =  $(this).attr('id');
+            s = $(this).attr('src');
+            /*
+            if(s.localeCompare("/site/image/lamp_accesa.svg") ){
+                message = new Paho.MQTT.Message("off");
+                message.destinationName = "/scsshield/device/" + nome_attuatore + "/dimmer";
+                client.send(message);
+            }else{
+                message = new Paho.MQTT.Message("on");
+                message.destinationName = "/scsshield/device/" + nome_attuatore + "/dimmer";
+                client.send(message);
+            }
+            */
+                message = new Paho.MQTT.Message("t");
+                message.destinationName = "/scsshield/device/" + nome_attuatore + "/dimmer";
+                client.send(message);
+        });
+
+        //ATTUATORI TIPO Sensori_Temperatura
+        $(document).on("click", ".CLASS_T_REFRESH_BUTTON_SENSTEMP", function () {
+            var nome_attuatore =  $(this).attr('id');
+            console.log(nome_attuatore);
+
+            message = new Paho.MQTT.Message("");
+            message.destinationName = "/scsshield/device/" + nome_attuatore + "/request";
+            client.send(message);
+        });
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+var loc = window.location, new_uri;
+new_uri = loc.host;
+
+// Create a client instance
+client = new Paho.MQTT.Client(loc.host, 9001, "clientId");
+
+// set callback handlers
+client.onConnectionLost = onConnectionLost;
+client.onMessageArrived = onMessageArrived;
+
+// connect the client
+client.connect({onSuccess:onConnect});
+
+
+// called when the client connects
+function onConnect() {
+  // Once a connection has been made, make a subscription and send a message.
+  console.log("onConnect");
+  client.subscribe("/scsshield/device/+/status");
+  client.subscribe("/scsshield/device/+/status/percentuale");
+  client.subscribe("/scsshield/device/+/modalita_termostato_impostata");
+  client.subscribe("/scsshield/device/+/temperatura_termostato_impostata");
+
+  //message = new Paho.MQTT.Message("Hello");
+  //message.destinationName = "World";
+  //client.send(message);
+
+}
+
+// called when the client loses its connection
+function onConnectionLost(responseObject) {
+  if (responseObject.errorCode !== 0) {
+    console.log("onConnectionLost:"+responseObject.errorMessage);
+  }
+}
+
+// called when a message arrives
+function onMessageArrived(message) {
+    var m = (message.topic).split("/");
+    var nomeDevice = m[3];
+    
+    console.log(message.topic)
+    console.log(nomeDevice)
+    console.log(m[4])
+    console.log()
+    
+
+    var mesg = (message.payloadString).toLowerCase();
+
+
+    $.each(listaDevices, function (key, val) {
+
+        if(val.nome_attuatore == nomeDevice){
+            if(val.tipo_attuatore == "ON_OFF"){
+                if((mesg.localeCompare("on") == 0) || (mesg.localeCompare("1") == 0) ) {
+                    $('[class="imgON_OFF_'+nomeDevice+'"]').attr("src", "/site/image/lamp_accesa.svg");       
+                }else{
+                    $('[class="imgON_OFF_'+nomeDevice+'"]').attr("src", "/site/image/lamp_spenta.svg");       
+                }
+            }else if(val.tipo_attuatore == "Serrande_Tapparelle"){
+                $('[class="SERRANDAPERCENTUALE_'+nomeDevice+'"]').text(mesg +'%');
+                $('#SERRANDA_RANGE_'+nomeDevice).val(mesg);
+            }else if(val.tipo_attuatore == "Dimmer"){
+                if(m[5] != null){
+                    $('#SERRANDA_RANGE_'+nomeDevice).val(message.payloadString);
+                    $('[class="SERRANDAPERCENTUALE_'+nomeDevice+'"]').text(message.payloadString +'%');
+                }else{
+                    if((mesg.localeCompare("on") == 0) || (mesg.localeCompare("1") == 0) ) {
+                        $('[class="CLASS_T_DIMMER_ONOFF imgON_OFF_'+nomeDevice+'"]').attr("src", "/site/image/lamp_accesa.svg");       
+                    }else{
+                        $('[class="CLASS_T_DIMMER_ONOFF imgON_OFF_'+nomeDevice+'"]').attr("src", "/site/image/lamp_spenta.svg");       
+                    }
+                }
+            }else if(val.tipo_attuatore == "Sensori_Temperatura"){
+                $('[class="SENSORE_TEMP_VALUE_'+nomeDevice+'"]').text(mesg +'°');
+            }else if(val.tipo_attuatore == "Termostati"){
+                if(m[4] != null){
+                    if(m[4].localeCompare("status") == 0) {
+                        $('[class="TERMOSTATO_SENSOR_TEMP_VALUE_'+nomeDevice+'"]').text(mesg +'°');
+                    }else if(m[4].localeCompare("temperatura_termostato_impostata") == 0) {
+                        $('[class="TERMOSTATO_SETTING_TEMP_VALUE_'+nomeDevice+'"]').text(mesg +'°');
+                    }else if(m[4].localeCompare("modalita_termostato_impostata") == 0) {
+                        $('[class="TERMOSTATO_MODALITA_VALUE_'+nomeDevice+'"]').text(mesg);
+                    }
+                }
+            }
+
+
+
+
+        }
+    });
+
+
+
+}
+
+
+/*
+        //MQTT
+        var mqtt;
+        var reconnectTimeout = 2000;
+        var host="192.168.1.16";
+        var port=9001;
+
+        function onConnect(){
+            console.log("CONNECT MQTT");
+        }
+
+        function MQTTconnect(){
+            console.log("CONNECTING to host MQTT");
+
+            mqtt = new Paho.MQTT.Client(host,port,"cliendId");
+            var options = {
+                timeout: 3,
+                onSuccess: onConnect,
+            };
+
+
+
+            mqtt.connect(options);
+        }
+
+
+
+
+
+        MQTTconnect();
+
+
+*/
+
+
+    </script>
+
+
+</body>
+</html>
