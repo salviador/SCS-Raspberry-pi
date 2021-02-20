@@ -238,7 +238,7 @@ class SCSshield(object):
 
 
     async def interfaccia_send_COMANDO_7_RAW(self, bufferval):
-        print("interfaccia_send_COMANDO_7_RAW ")
+        #print("interfaccia_send_COMANDO_7_RAW ")
 
         checkbytes = b'\x00'
         checkbytes = bufferval[1]
@@ -251,7 +251,7 @@ class SCSshield(object):
         await asyncio.sleep(0) # Let's be a bit greedy, should be adjust to your needs
 
     async def interfaccia_send_COMANDO_11_RAW(self, bufferval):
-        print("interfaccia_send_COMANDO_11_RAW ")
+        #print("interfaccia_send_COMANDO_11_RAW ")
 
         checkbytes = b'\x00'
         checkbytes = bufferval[1]
@@ -380,8 +380,8 @@ class SCSshield(object):
     def addDevice(self, mdevice):
         SCSshield.list_scsdevice.append(mdevice)
         #debug
-        print("ADD DEVICE")
-        print(mdevice.Get_Nome_Attuatore() )
+        #print("ADD DEVICE")
+        #print(mdevice.Get_Nome_Attuatore() )
 
     def clearDevice(self):
         SCSshield.list_scsdevice = list()
@@ -568,23 +568,24 @@ class Serranda(SCSDevice):
         self.loop = loop
 
     async def _timerCallback_elapsed(self):
-        print("TIMERRRRRRRRR   OUTTTTTTTTTTTTTTTTTTTTTTT")
+        #print("TIMERRRRRRRRR   OUTTTTTTTTTTTTTTTTTTTTTTT")
         self.Ricalcolo_Percent_from_timerelaspe()
 
 
     def start_timer(self, time):
         if((self.timer == None)or(self.timer.done()==True)):
-            print("START TIMER")
+            #print("START TIMER")
             self.timer = Timerelapsed.Timer(time, self._timerCallback_elapsed)            
         else:
-            print("START gia in azione TIMER")
+            #print("START gia in azione TIMER")
+            pass
 
 
     def stop_timer(self):
         if(self.timer != None):
             if(self.timer.done()==False):
                 self.timer.cancel()
-                print("Force to cancel")
+                #print("Force to cancel")
 
 
     def RecTimer(self, action):
@@ -593,16 +594,17 @@ class Serranda(SCSDevice):
             self.statoComando = action
             self.lastComando = action
         else:
-            print("STESSO COMANDO, NIENTE AZIONE")
+            #print("STESSO COMANDO, NIENTE AZIONE")
             #stesso comando precedente ma ripetuto
+            pass
 
     def Ricalcolo_Percent_from_timerelaspe(self):
         if(self.lastComando != 0):
             timerATTUALE = time.time_ns() / 1000000  # in mS
             timerElapsed = timerATTUALE - self.timerSTARTmove
 
-            print("SERRANDA Stop , timerElapsed:  " + str(timerElapsed))
-            print("SERRANDA Stop , statoComando:  " + str(self.statoComando))
+            #print("SERRANDA Stop , timerElapsed:  " + str(timerElapsed))
+            #print("SERRANDA Stop , statoComando:  " + str(self.statoComando))
 
 
             if(self.statoComando == 1):
@@ -616,7 +618,7 @@ class Serranda(SCSDevice):
                 if(self.stato_percentuale > 100):
                     self.stato_percentuale = 100
 
-                print("SERRANDA Stop, [apri] , new % :  " + str(self.stato_percentuale))
+                #print("SERRANDA Stop, [apri] , new % :  " + str(self.stato_percentuale))
 
 
             elif(self.statoComando == -1):
@@ -630,7 +632,7 @@ class Serranda(SCSDevice):
                 if(self.stato_percentuale < 0 ):
                     self.stato_percentuale = 0
 
-                print("SERRANDA Stop, [chiudi] , new % :  " + str(self.stato_percentuale))
+                #print("SERRANDA Stop, [chiudi] , new % :  " + str(self.stato_percentuale))
         
             self.statoComando = 0
             self.lastComando = 0
@@ -641,9 +643,9 @@ class Serranda(SCSDevice):
 
 
         else:
-            print("STESSO COMANDO, NIENTE AZIONE")
+            #print("STESSO COMANDO, NIENTE AZIONE")
             #stesso comando precedente ma ripetuto
-
+            pass
 
     async def Azione(self, value_percent, look):
         pattuale = self.stato_percentuale
@@ -664,32 +666,32 @@ class Serranda(SCSDevice):
             await self.Abbassa(millisecond_action, look)
 
     async def Stop(self,look):
-        print("WAIT MUTEX --> [Serranda.Stop] " +  super().Get_Nome_Attuatore() )
+        #print("WAIT MUTEX --> [Serranda.Stop] " +  super().Get_Nome_Attuatore() )
 
         async with look:        
-            print("--------------> [Serranda.Stop] " +  super().Get_Nome_Attuatore())
+            #print("--------------> [Serranda.Stop] " +  super().Get_Nome_Attuatore())
             stato = await self.scsshield.interfaccia_send_COMANDO(super().Get_Address_A(), super().Get_Address_PL(), 10, 1)
             await asyncio.sleep(0)
 
 
     async def Alza(self, timevalue, look):
-        print("WAIT MUTEX --> [Serranda.Alza] " +  super().Get_Nome_Attuatore() )
+        #print("WAIT MUTEX --> [Serranda.Alza] " +  super().Get_Nome_Attuatore() )
 
         async with look:        
-            print("--------------> [Serranda.Alza] " +  super().Get_Nome_Attuatore())
+            #print("--------------> [Serranda.Alza] " +  super().Get_Nome_Attuatore())
             stato = await self.scsshield.interfaccia_send_COMANDO(super().Get_Address_A(), super().Get_Address_PL(), 10, 1)
 
-            print("STATO_1: " + str(stato))
+            #print("STATO_1: " + str(stato))
 
             if(stato == 10):
                 await asyncio.sleep(0.5)
                 stato = await self.scsshield.interfaccia_send_COMANDO(super().Get_Address_A(), super().Get_Address_PL(), 8, 1)
-                print("STATO_2: " + str(stato))
+                #print("STATO_2: " + str(stato))
 
             super().Set_Stato(stato)
             super().Reset_Change_Stato()
 
-        print("aspetto serranda tempo: " + str(timevalue))
+        #print("aspetto serranda tempo: " + str(timevalue))
 
         await asyncio.sleep(timevalue/1000)
 
@@ -700,14 +702,14 @@ class Serranda(SCSDevice):
 
 
     async def Abbassa(self, timevalue, look):
-        print("WAIT MUTEX --> [Serranda.Abbassa] " +  super().Get_Nome_Attuatore() )
+        #print("WAIT MUTEX --> [Serranda.Abbassa] " +  super().Get_Nome_Attuatore() )
 
         async with look:        
-            print("--------------> [Serranda.Abbassa] " +  super().Get_Nome_Attuatore())
+            #print("--------------> [Serranda.Abbassa] " +  super().Get_Nome_Attuatore())
             stato = await self.scsshield.interfaccia_send_COMANDO(super().Get_Address_A(), super().Get_Address_PL(), 10, 1)
 
 
-            print("STATO: " + str(stato))
+            #print("STATO: " + str(stato))
 
             if(stato == 10):
                 await asyncio.sleep(0.5)
@@ -716,7 +718,7 @@ class Serranda(SCSDevice):
             super().Set_Stato(stato)
             super().Reset_Change_Stato()
 
-        print("aspetto serranda tempo: " + str(timevalue))
+        #print("aspetto serranda tempo: " + str(timevalue))
 
         await asyncio.sleep(timevalue/1000)
 
@@ -765,33 +767,33 @@ class Dimmer(SCSDevice):
 
     
     async def On(self,look):        
-        print("WAIT MUTEX --> [Dimmer.On] " +  super().Get_Nome_Attuatore() )
+        #print("WAIT MUTEX --> [Dimmer.On] " +  super().Get_Nome_Attuatore() )
 
         async with look:        
-            print("--------------> [Dimmer.On] " +  super().Get_Nome_Attuatore())
+            #print("--------------> [Dimmer.On] " +  super().Get_Nome_Attuatore())
             stato = await self.scsshield.interfaccia_send_COMANDO(super().Get_Address_A(), super().Get_Address_PL(), 0, 1)
             
-            print("STATO: " + str(stato))
+            #print("STATO: " + str(stato))
 
             super().Set_Stato(stato)
             super().Reset_Change_Stato()
             await asyncio.sleep(0)
 
     async def Off(self,look):
-        print("WAIT MUTEX --> [Dimmer.Off] " +  super().Get_Nome_Attuatore() )
+        #print("WAIT MUTEX --> [Dimmer.Off] " +  super().Get_Nome_Attuatore() )
 
         async with look:        
-            print("--------------> [Dimmer.Off] " +  super().Get_Nome_Attuatore())
+            #print("--------------> [Dimmer.Off] " +  super().Get_Nome_Attuatore())
             stato = await self.scsshield.interfaccia_send_COMANDO(super().Get_Address_A(), super().Get_Address_PL(), 1, 1)
             super().Set_Stato(stato)
             super().Reset_Change_Stato()
             await asyncio.sleep(0)
 
     async def Toggle(self,look):
-        print("WAIT MUTEX --> [Dimmer.Toggle] " +  super().Get_Nome_Attuatore() )
+        #print("WAIT MUTEX --> [Dimmer.Toggle] " +  super().Get_Nome_Attuatore() )
 
         async with look:        
-            print("--------------> [Dimmer.Toggle] " +  super().Get_Nome_Attuatore())
+            #print("--------------> [Dimmer.Toggle] " +  super().Get_Nome_Attuatore())
             stato_dimmer = super().Get_Stato()
 
             if((stato_dimmer > 1)or(stato_dimmer == 0)):
@@ -808,7 +810,7 @@ class Dimmer(SCSDevice):
     async def Set_Dimmer_percent(self, val, look):
         percentuale = int(val)
  
-        print("WAIT MUTEX --> [Dimmer.set_Dimmer] " +  super().Get_Nome_Attuatore() )
+        #print("WAIT MUTEX --> [Dimmer.set_Dimmer] " +  super().Get_Nome_Attuatore() )
         if(percentuale > 100):
             percentuale = 100
         if(percentuale < 0):
@@ -821,7 +823,7 @@ class Dimmer(SCSDevice):
 
         async with look:      
             try:  
-                print("--------------> [Dimmer.set_Dimmer] " +  super().Get_Nome_Attuatore())
+                #print("--------------> [Dimmer.set_Dimmer] " +  super().Get_Nome_Attuatore())
 
                 percmod = self.valmap(percentuale,0,100,10,100)       #percentuale varia da 0:100 a --> 10:100
 
@@ -859,7 +861,7 @@ class Dimmer(SCSDevice):
         elif(stato_dimmer > 1):
             #Acceso con dimmerazione
             for i, _ in enumerate(dimmerCodifica):
-                print(i, _)
+                #print(i, _)
                 if(_ == bytes([stato_dimmer])):
                     stato = i*10        #ritorna PERCENTUALE
                     #percmod = self.valmap(stato,0,90,0,100)       #percentuale varia da 0:100 a --> 10:100
@@ -895,10 +897,10 @@ class Sensori_Temperatura(SCSDevice):
     async def Forza_la_lettura_Temperatura(self, look):
 
         try:
-            print("WAIT MUTEX --> [Sensori_Temperatura.Forza_la_lettura_Temperatura] " +  super().Get_Nome_Attuatore() )
+            #print("WAIT MUTEX --> [Sensori_Temperatura.Forza_la_lettura_Temperatura] " +  super().Get_Nome_Attuatore() )
 
             async with look:        
-                print("--------------> [Sensori_Temperatura.Forza_la_lettura_Temperatura] " +  super().Get_Nome_Attuatore())
+                #print("--------------> [Sensori_Temperatura.Forza_la_lettura_Temperatura] " +  super().Get_Nome_Attuatore())
 
                 address = b'\x00'
                 address = SCSshield.bitwise_and_bytes(bytes([super().Get_Address_A()]), b'\x0F')
@@ -971,13 +973,13 @@ class Termostati(SCSDevice):
   
     async def set_temp_termostato(self, temp, look):
         try:
-            print("WAIT MUTEX --> [Termostati.set_temp_termostato] " +  super().Get_Nome_Attuatore() + "  temp=" + str(temp))
+            #print("WAIT MUTEX --> [Termostati.set_temp_termostato] " +  super().Get_Nome_Attuatore() + "  temp=" + str(temp))
 
             val = (((temp - 3) / 0.5) + 6)
 
 
             async with look:        
-                print("--------------> [Termostati.set_temp_termostato] " +  super().Get_Nome_Attuatore())
+                #print("--------------> [Termostati.set_temp_termostato] " +  super().Get_Nome_Attuatore())
 
                 address = b'\x00'
                 address = SCSshield.bitwise_and_bytes(bytes([super().Get_Address_A()]), b'\x0F')
@@ -995,7 +997,7 @@ class Termostati(SCSDevice):
 
     async def set_modalita_termostato(self, modalita, look):
         try:
-            print("WAIT MUTEX --> [Termostati.set_modalita_termostato] " +  super().Get_Nome_Attuatore() + "   modalita: " + modalita)
+            #print("WAIT MUTEX --> [Termostati.set_modalita_termostato] " +  super().Get_Nome_Attuatore() + "   modalita: " + modalita)
 
             address = b'\x00'
             address = SCSshield.bitwise_and_bytes(bytes([super().Get_Address_A()]), b'\x0F')
@@ -1013,7 +1015,7 @@ class Termostati(SCSDevice):
                 bufval = []
 
             async with look:        
-                print("--------------> [Termostati.set_modalita_termostato] " +  super().Get_Nome_Attuatore())
+                #print("--------------> [Termostati.set_modalita_termostato] " +  super().Get_Nome_Attuatore())
                 if(len(bufval)>0):
                     await self.scsshield.interfaccia_send_COMANDO_11_RAW( bufval )
                     await asyncio.sleep(0.1)

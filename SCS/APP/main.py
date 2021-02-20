@@ -16,8 +16,10 @@ import mqtt
 import nodered
 
 import sys
-sys.path.append('/home/pi/SCS/WEB')
-import webapp
+import importlib.machinery
+#sys.path.append('/home/pi/SCS/WEB')
+#import webapp
+webapp = importlib.machinery.SourceFileLoader('webapp', '../WEB/webapp.py').load_module()
 
 #pip3 install janus
 #pip3 install asyncserial
@@ -26,6 +28,8 @@ import webapp
 #ADD MOSQUITTO MQTT WEBSOCKET ENABLE
 #https://stackoverflow.com/questions/35338222/mosquitto-err-connection-refused-with-paho-client
 
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 
 enable_opto = LED(12)
@@ -59,9 +63,9 @@ scsmqtt = mqtt.SCSMQTT()
 
 
 async def Node_Red_flow(jqueqe):
-	print("START -> Node_Red_flow")
+	#print("START -> Node_Red_flow")
 	while(True):
-		print("WAIT -> Node_Red_flow")
+		#print("WAIT -> Node_Red_flow")
 		v = await jqueqe.get()
 		n = nodered.nodered()
 		n.main()
@@ -88,14 +92,14 @@ def popula_device():
 		#smod = re.sub("\s+", "_", s.strip())
 		#smod = s
 		if (item['tipo_attuatore'] == "on_off"):
-			print("--- DEVICE ON_FF------------------")
+			#print("--- DEVICE ON_FF------------------")
 			on_off = SCS.Switch(shield)
 			on_off.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
 			on_off.Set_Nome_Attuatore(item['nome_attuatore'])
 			shield.addDevice(on_off)
 
 		elif (item['tipo_attuatore'] == "serrande_tapparelle"):
-			print("--- DEVICE serrande_tapparelle------------------")
+			#print("--- DEVICE serrande_tapparelle------------------")
 			serranda = SCS.Serranda(shield)
 			serranda.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
 			serranda.set_Timer(int(item['timer_salita']), int(item['timer_discesa']))
@@ -104,14 +108,14 @@ def popula_device():
 			shield.addDevice(serranda)
 
 		elif (item['tipo_attuatore'] == "dimmer"):
-			print("--- DEVICE Dimmer------------------")
+			#print("--- DEVICE Dimmer------------------")
 			dimmer = SCS.Dimmer(shield)
 			dimmer.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
 			dimmer.Set_Nome_Attuatore(item['nome_attuatore'])
 			shield.addDevice(dimmer)
 
 		elif (item['tipo_attuatore'] == "sensori_temperatura"):
-			print("--- DEVICE sensori_temperatura------------------")
+			#print("--- DEVICE sensori_temperatura------------------")
 			sensore = SCS.Sensori_Temperatura(shield)
 			sensore.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
 			sensore.Set_Nome_Attuatore(item['nome_attuatore'])
@@ -119,7 +123,7 @@ def popula_device():
 			loop.create_task( sensore.Forza_la_lettura_Temperatura(lock_uartTX) )
 
 		elif (item['tipo_attuatore'] == "termostati"):
-			print("--- DEVICE termostati------------------")
+			#print("--- DEVICE termostati------------------")
 			termostato = SCS.Termostati(shield)
 			termostato.Set_obj_SensoreTemp( SCS.Sensori_Temperatura(shield) )
 			sensore = termostato.Get_obj_SensoreTemp()
@@ -148,7 +152,7 @@ async def tsk_refresh_database(jqueqe):
 	while(True):
 		try:
 			v = await jqueqe.get()
-			print(f'{time.ctime()} *NEED Refresh Database* ' f'{v}')
+			#print(f'{time.ctime()} *NEED Refresh Database* ' f'{v}')
 			#print(type(v))
 
 			#su v ho il vecchio attuatore,
@@ -158,7 +162,7 @@ async def tsk_refresh_database(jqueqe):
 					nomeAtt = v['nome_attuatore']
 					tipoAtt = v['tipo_attuatore']
 					
-					print("Send Null MQTT retain")
+					#print("Send Null MQTT retain")
 
 					if(tipoAtt == 'on_off'):
 						await scsmqtt.post_to_MQTT_retain_reset("/scsshield/device/" + nomeAtt + "/status")
@@ -254,7 +258,7 @@ async def mqtt_action(jqueqe):
 						elif(tdevice.name == SCS.TYPE_INTERfACCIA.serrande_tapparelle.name):
 							action = b[4]
 							if(action.lower() == "percentuale"):
-								print("3 --- SERANDA MQTT AZIONE in %: ", message)
+								#print("3 --- SERANDA MQTT AZIONE in %: ", message)
 
 								try:
 									cmd1 = loop.create_task(device.Azione(int(message), lock_uartTX))
@@ -323,7 +327,7 @@ async def deviceReceiver_from_SCSbus(jqueqe):
 
 		try:
 			#print("uart_rx_deviceReceiver LEN: {}" .format(len(trama)))
-			print("uart_rx_deviceReceiver: {}" .format(trama))
+			#print("uart_rx_deviceReceiver: {}" .format(trama))
 
 			devices= shield.getDevices()
 			for device in devices:
@@ -465,7 +469,7 @@ async def deviceReceiver_from_SCSbus(jqueqe):
 
 
 async def start_tornado(jqueqe, jqueqeNodeRed):
-	print(f'{time.ctime()} ENTER WEB SERVER')
+	print(f'{time.ctime()} WEB SERVER start')
 
 	app = webapp.make_app()
 	app.listen(80)
@@ -478,7 +482,7 @@ async def start_tornado(jqueqe, jqueqeNodeRed):
 	#webapp.tornado.platform.asyncio.AsyncIOMainLoop().install()
 
 	webapp.tornado.platform.asyncio.AsyncIOMainLoop().install()
-	print(f'{time.ctime()} EXIT WEB SERVER')
+	#print(f'{time.ctime()} EXIT WEB SERVER')
 
 
 async def main():
@@ -534,14 +538,14 @@ process = subprocess.Popen(['node-red-start'],
 					stdout=subprocess.PIPE, 
 					stderr=subprocess.PIPE)
 
-print(process)
+#print(process)
 
 
 process = subprocess.Popen(['systemctl', 'status nodered.service'],
 					stdout=subprocess.PIPE, 
 					stderr=subprocess.PIPE)                        
 
-print(process)
+#print(process)
     
 
 loop.create_task(main())

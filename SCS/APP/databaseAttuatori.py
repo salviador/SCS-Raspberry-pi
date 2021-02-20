@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from tinydb import TinyDB, Query
+import os
 
 
 #tinydb
@@ -13,7 +14,9 @@ Struttura database
 nome attuatore - tipo attuatore - indirizzo Ambiente - indirizzo PL
 
 """
-FILE = "/home/pi/SCS/APP/db.json"
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+FILE = dir_path + "/db.json"
 
 
 
@@ -139,7 +142,7 @@ class configurazione_database:
 
     def myprint(self):
         #self.db.purge()
-        print(self.db.all())
+        #print(self.db.all())
         #print(len(self.db))
         pass
 

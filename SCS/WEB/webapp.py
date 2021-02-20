@@ -13,9 +13,19 @@ import asyncio
 
 
 import sys
-sys.path.append('/home/pi/SCS/APP')
-import databaseAttuatori
-import nodered
+#sys.path.append('/home/pi/SCS/APP')
+#import databaseAttuatori
+#import nodered
+
+import importlib.machinery
+#sys.path.append('/home/pi/SCS/WEB')
+#import webapp
+databaseAttuatori = importlib.machinery.SourceFileLoader('databaseAttuatori', '../APP/databaseAttuatori.py').load_module()
+nodered = importlib.machinery.SourceFileLoader('nodered', '../APP/nodered.py').load_module()
+
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
 
 dbm = databaseAttuatori.configurazione_database()
 
@@ -47,8 +57,8 @@ class SocketHandler(websocket.WebSocketHandler):
 
     def on_message(self, message):              
         #data = json.loads(message) 
-        print("sochet message: ", message)
-        
+        #print("sochet message: ", message)
+        pass
 
 
 #HOME
@@ -133,7 +143,7 @@ class GetConfigurazione_JSONreact(tornado.web.RequestHandler):
             else:
                 lista_attuatori.append({'nome_attuatore' : s ,'tipo_attuatore': item['tipo_attuatore'], 'indirizzo_Ambiente' : item['indirizzo_Ambiente'] ,'indirizzo_PL': item['indirizzo_PL']})
 
-        print("*****" , lista_attuatori)
+        #print("*****" , lista_attuatori)
         self.write(json.dumps(lista_attuatori))   
 
 
@@ -312,7 +322,7 @@ class Get_NodeRed_manual_flow(tornado.web.RequestHandler):
 def rec_queque(jqueqe):
     global q
     q = jqueqe
-    print(type(q))
+    #print(type(q))
 
 
 
@@ -351,7 +361,7 @@ def make_app():
 
 	    #(r'/site/js/(.*)', tornado.web.StaticFileHandler, {'path': '/home/pi/SCS/WEB/site/js/'}),
 	    #(r'/site/css/(.*)', tornado.web.StaticFileHandler, {'path': '/home/pi/SCS/WEB/site/css/'}),
-	    (r'/site/image/(.*)', tornado.web.StaticFileHandler, {'path': '/home/pi/SCS/WEB/site/build'}),
+	    (r'/site/image/(.*)', tornado.web.StaticFileHandler, {'path': dir_path + '/site/build'}),
 
 
 
@@ -361,9 +371,9 @@ def make_app():
 
         #React x pagina test
         (r"/test3.html", reactMain),
-        (r"/build(.*)", tornado.web.StaticFileHandler, {'path': '/home/pi/SCS/WEB/site/build/'}),
-	    (r'/static/css/(.*)', tornado.web.StaticFileHandler, {'path': '/home/pi/SCS/WEB/site/build/static/css/'}),
-	    (r'/static/js/(.*)', tornado.web.StaticFileHandler, {'path': '/home/pi/SCS/WEB/site/build/static/js/'})
+        (r"/build(.*)", tornado.web.StaticFileHandler, {'path': dir_path + '/site/build/'}),
+	    (r'/static/css/(.*)', tornado.web.StaticFileHandler, {'path': dir_path + '/site/build/static/css/'}),
+	    (r'/static/js/(.*)', tornado.web.StaticFileHandler, {'path': dir_path + '/site/build/static/js/'})
 
 
 
