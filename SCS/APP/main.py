@@ -19,7 +19,17 @@ import sys
 import importlib.machinery
 #sys.path.append('/home/pi/SCS/WEB')
 #import webapp
-webapp = importlib.machinery.SourceFileLoader('webapp', '../WEB/webapp.py').load_module()
+
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+dir_path_weblist = dir_path.split('/')
+s = ''
+for i, _ in enumerate(dir_path_weblist):
+    if((len(dir_path_weblist)-1) != i):
+        s = s + _ + '/'
+dir_path_web = s + 'WEB/'
+
+webapp = importlib.machinery.SourceFileLoader('webapp', dir_path_web + 'webapp.py').load_module()
 
 #pip3 install janus
 #pip3 install asyncserial
@@ -29,7 +39,6 @@ webapp = importlib.machinery.SourceFileLoader('webapp', '../WEB/webapp.py').load
 #https://stackoverflow.com/questions/35338222/mosquitto-err-connection-refused-with-paho-client
 
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
 
 
 enable_opto = LED(12)

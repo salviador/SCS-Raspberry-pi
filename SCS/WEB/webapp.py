@@ -20,11 +20,21 @@ import sys
 import importlib.machinery
 #sys.path.append('/home/pi/SCS/WEB')
 #import webapp
-databaseAttuatori = importlib.machinery.SourceFileLoader('databaseAttuatori', '../APP/databaseAttuatori.py').load_module()
-nodered = importlib.machinery.SourceFileLoader('nodered', '../APP/nodered.py').load_module()
-
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
+dir_path_weblist = dir_path.split('/')
+s = ''
+for i, _ in enumerate(dir_path_weblist):
+    if((len(dir_path_weblist)-1) != i):
+        s = s + _ + '/'
+dir_path_app = s + 'APP/'
+
+
+
+databaseAttuatori = importlib.machinery.SourceFileLoader('databaseAttuatori', dir_path_app + 'databaseAttuatori.py').load_module()
+nodered = importlib.machinery.SourceFileLoader('nodered', dir_path_app + 'nodered.py').load_module()
+
+
 
 
 dbm = databaseAttuatori.configurazione_database()
