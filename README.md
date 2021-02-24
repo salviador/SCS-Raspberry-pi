@@ -12,6 +12,16 @@
 </p>
 
 
+**Caratteristiche**
+
+* Raspberry completamente Isolata dal bus
+* Configurazione semplice grazie alla web-app
+* Possibilità di effettuare Test degli attuatori grazie alla web-app
+* La comunicazione con la shield avviene in modo semplice tramite <code>MQTT</code>, con la possibilità all'utente di sviluppare le proprie applicazioni con qualsiasi linguaggio desiderato comunicando tramite <code>MQTT Publish/Subscribe</code>
+
+
+
+
 **Prerequisiti e preparazione dell'installazione**
 
 * <code>Scaricare <a href="https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit" target="_blank"> Raspberry Pi OS with desktop and recommended software</a>
