@@ -20,6 +20,12 @@
 * La comunicazione con la shield avviene in modo semplice tramite <code>MQTT</code>, con la possibilità dell'utente di sviluppare le proprie applicazioni con qualsiasi linguaggio desiderato comunicando tramite <code>MQTT Publish/Subscribe</code>
 
 
+**Pin usati**
+
+* UART0 TX (8)
+* UART0 RX (10)
+* GPIO 12 (32)
+
 
 
 **Prerequisiti e preparazione dell'installazione**
