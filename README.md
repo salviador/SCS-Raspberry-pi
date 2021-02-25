@@ -8,7 +8,7 @@
 <br>
 
 <p align="center">
-  <img src="raspberry.jpg" width="300" />
+  <img src="raspberry2.jpg" width="300" />
 </p>
 
 
