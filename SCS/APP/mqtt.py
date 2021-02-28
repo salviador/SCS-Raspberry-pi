@@ -50,6 +50,12 @@ class SCSMQTT(object):
             manager = self.client.filtered_messages(self.topic_filter)
             messages = await stack.enter_async_context(manager)
 
+            task = asyncio.create_task(self.log_messages(messages))
+            tasks.add(task)
+
+            manager = self.client.filtered_messages("/scsshield/SendtoBus")
+            messages = await stack.enter_async_context(manager)
+
 
             task = asyncio.create_task(self.log_messages(messages))
             tasks.add(task)
@@ -58,6 +64,7 @@ class SCSMQTT(object):
             # Subscribe to topic(s)
             # 🤔 Note that we subscribe *after* starting the message
             # loggers. Otherwise, we may miss retained messages.
+            await self.client.subscribe("/scsshield/SendtoBus")
             await self.client.subscribe(self.topic_filter)
 
             # Wait for everything to complete (or fail due to, e.g., network

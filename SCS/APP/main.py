@@ -146,6 +146,27 @@ def popula_device():
 			shield.addDevice(termostato)
 			loop.create_task( sensore.Forza_la_lettura_Temperatura(lock_uartTX) )
 
+		elif (item['tipo_attuatore'] == "gruppi"):
+			#print("--- DEVICE GRUPPI------------------")
+			gruppi = SCS.Gruppi(shield)
+			gruppi.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
+			gruppi.Set_Nome_Attuatore(item['nome_attuatore'])
+			shield.addDevice(gruppi)
+
+		elif (item['tipo_attuatore'] == "serrature"):
+			#print("--- DEVICE SERRATURE------------------")
+			serrature = SCS.Serrature(shield)
+			serrature.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
+			serrature.Set_Nome_Attuatore(item['nome_attuatore'])
+			shield.addDevice(serrature)
+
+		elif (item['tipo_attuatore'] == "campanello_porta"):
+			#print("--- DEVICE CAMPANELLO PORTA------------------")
+			campanello = SCS.Campanello(shield)
+			campanello.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
+			campanello.Set_Nome_Attuatore(item['nome_attuatore'])
+			shield.addDevice(campanello)
+
 		#POPOLARE CON ALTRI TIPI DI DEVICE
 		#POPOLARE CON ALTRI TIPI DI DEVICE
 		#POPOLARE CON ALTRI TIPI DI DEVICE
@@ -192,6 +213,11 @@ async def tsk_refresh_database(jqueqe):
 						await scsmqtt.post_to_MQTT_retain_reset("/scsshield/device/" + nomeAtt + "/modalita_termostato_impostata")
 						await scsmqtt.post_to_MQTT_retain_reset("/scsshield/device/" + nomeAtt + "/set_temp_termostato")
 						await scsmqtt.post_to_MQTT_retain_reset("/scsshield/device/" + nomeAtt + "/set_modalita_termostato")
+					elif(tipoAtt == 'gruppi'):
+						await scsmqtt.post_to_MQTT_retain_reset("/scsshield/device/" + nomeAtt + "/status")
+					elif(tipoAtt == 'campanello_porta'):
+						await scsmqtt.post_to_MQTT_retain_reset("/scsshield/device/" + nomeAtt + "/status")
+
 				except KeyError as k:
 					pass
 			#async with lock_uartTX:        
@@ -290,6 +316,50 @@ async def mqtt_action(jqueqe):
 							elif(action.lower() == "set_modalita_termostato"):
 								cmd1 = loop.create_task(device.set_modalita_termostato(message, lock_uartTX))
 								await (cmd1)
+
+						elif(tdevice.name == SCS.TYPE_INTERfACCIA.gruppi.name):
+							action = b[4]
+							if(action.lower() == "switch"):
+								if((message.lower() == "on") or (message.lower() == "1")):
+									cmd1 = loop.create_task( device.On(lock_uartTX) )
+									await (cmd1)
+								elif((message.lower() == "off") or (message.lower() == "0")):
+									cmd1 = loop.create_task( device.Off(lock_uartTX) )
+									await (cmd1)
+								elif((message.lower().startswith("t")) or (message.lower() == "2")):
+									cmd1 = loop.create_task( device.Toggle(lock_uartTX) )
+									await (cmd1)
+
+						elif(tdevice.name == SCS.TYPE_INTERfACCIA.serrature.name):
+							action = b[4]
+							if(action.lower() == "sblocca"):
+								cmd1 = loop.create_task( device.Sblocca(lock_uartTX) )
+								await (cmd1)
+
+			elif(v.topic == '/scsshield/SendtoBus'):
+				s1 = message.split(' ')
+				s2 = message.split(',')
+				sx = list()
+				if((len(s1) == 7)or(len(s1) == 11)):
+					sx = s1
+				if((len(s2) == 7)or(len(s2) == 11)):
+					sx = s2
+				if(len(sx)>0):
+					bytesRaw = list()
+					for _ in sx:
+						v = _
+						if(_[0].lower()=='x'):
+							v = _[1:]
+						elif(_[1].lower()=='x'):
+							v = _[2:]
+						bytesRaw.append(bytes.fromhex(v) )
+
+					async with lock_uartTX:
+						if(len(bytesRaw)==7):
+							await shield.interfaccia_send_COMANDO_7_RAW( bytesRaw )
+						if(len(bytesRaw)==11):
+							await shield.interfaccia_send_COMANDO_11_RAW( bytesRaw )
+					#print(bytesRaw)
 
 
 		except Exception as e:
@@ -407,7 +477,7 @@ async def deviceReceiver_from_SCSbus(jqueqe):
 
 					# campanello
 					elif((len(trama) == 7) and (trama[1] == b'\x91') and (trama[3] == b'\x60') and (trama[4] == b'\x08') and (type.name == SCS.TYPE_INTERfACCIA.campanello_porta.name)):
-						pass
+						await scsmqtt.post_to_MQTT("/scsshield/device/" + ndevice + "/status", 1)
 
 					# Gruppi
 					elif((len(trama) > 7) and (trama[1] == b'\xEC') and (type.name == SCS.TYPE_INTERfACCIA.gruppi.name)):
@@ -455,12 +525,24 @@ async def deviceReceiver_from_SCSbus(jqueqe):
 						device.Set_Temperatura_Termostato(temp)
 						await scsmqtt.post_to_MQTT("/scsshield/device/" + ndevice + "/temperatura_termostato_impostata", temp )
 
+				# Gruppi
+				elif((len(trama) > 7) and (address == trama[5]) and (trama[1] == b'\xEC') and (type.name == SCS.TYPE_INTERfACCIA.gruppi.name)):
+					statoDevice_in_Bus = int.from_bytes(trama[8], "big")
+					device.Set_Stato(statoDevice_in_Bus)
+					##Update MQTT
+					if(statoDevice_in_Bus == 1):
+						await scsmqtt.post_to_MQTT("/scsshield/device/" + ndevice + "/status", "off")
+					else:
+						await scsmqtt.post_to_MQTT("/scsshield/device/" + ndevice + "/status", "on")
+
+
+
 
 			s=""
 			for _ in trama:
 				h = '0x' + _.hex()
 				s= s + h + ' '
-			await scsmqtt.post_to_MQTT("/scsshield/debug/bus", s)
+			await scsmqtt.post_to_MQTT("/scsshield/ReceivefromBus", s)
 
 			await asyncio.sleep(0)
 

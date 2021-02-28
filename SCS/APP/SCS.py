@@ -1028,6 +1028,67 @@ class Termostati(SCSDevice):
 
 
 
+"""
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+GRUPPI
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+"""
+
+class Gruppi(SCSDevice):
+    def __init__(self, scsshield):
+        self.scsshield = scsshield
+        #self.lock_uartTX = lock_uartTX
+
+        super().__init__()
+        super().Set_Type(TYPE_INTERfACCIA.gruppi)
+        super().Set_Stato(0)
+        super().Reset_Change_Stato()
+    
+    async def On(self,look):        
+        #print("WAIT MUTEX --> [Switch.On] " +  super().Get_Nome_Attuatore() )
+
+        async with look:        
+            #print("--------------> [Switch.On] " +  super().Get_Nome_Attuatore())
+            stato = 0
+            stato = await self.scsshield.interfaccia_send_COMANDO(super().Get_Address_A(), super().Get_Address_PL(), 0, 0)
+            
+            #print("STATO: " + str(stato))
+
+            super().Set_Stato(stato)
+            super().Reset_Change_Stato()
+            await asyncio.sleep(0)
+
+    async def Off(self,look):
+        #print("WAIT MUTEX --> [Switch.Off] " +  super().Get_Nome_Attuatore() )
+
+        async with look:        
+            #print("--------------> [Switch.Off] " +  super().Get_Nome_Attuatore())
+            stato = 1
+            stato = await self.scsshield.interfaccia_send_COMANDO(super().Get_Address_A(), super().Get_Address_PL(), 1, 0)
+            super().Set_Stato(stato)
+            super().Reset_Change_Stato()
+            await asyncio.sleep(0)
+
+    async def Toggle(self,look):
+        #print("WAIT MUTEX --> [Switch.Toggle] " +  super().Get_Nome_Attuatore() )
+
+        async with look:        
+            #print("--------------> [Switch.Toggle] " +  super().Get_Nome_Attuatore())
+            stato = 1
+            if (super().Get_Stato()== 1):
+                stato = 0
+            stato = await self.scsshield.interfaccia_send_COMANDO(super().Get_Address_A(), super().Get_Address_PL(), stato, 0)
+            super().Set_Stato(stato)
+            super().Reset_Change_Stato()
+            await asyncio.sleep(0)
 
 
 
@@ -1035,17 +1096,78 @@ class Termostati(SCSDevice):
 
 
 
+"""
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+SERRATURE
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+"""
+
+class Serrature(SCSDevice):
+    def __init__(self, scsshield):
+        self.scsshield = scsshield
+        #self.lock_uartTX = lock_uartTX
+
+        super().__init__()
+        super().Set_Type(TYPE_INTERfACCIA.serrature)
+        super().Set_Stato(0)
+        super().Reset_Change_Stato()
+    
+    async def Sblocca(self,look):        
+        #print("WAIT MUTEX --> [Serratura.On] " +  super().Get_Nome_Attuatore() )
+
+        async with look:        
+            #print("--------------> [Serratura.On] " +  super().Get_Nome_Attuatore())
+
+            address = b'\x00'
+            #address = SCSshield.bitwise_and_bytes(bytes([super().Get_Address_A()]), b'\x0F')
+            address = SCSshield.bitwise_and_bytes(b'\x0A', b'\x0F')
+            address = SCSshield.bitwise_shiftleft_bytes(address , b'\x04')
+            address = SCSshield.bitwise_and_bytes(address, b'\xF0')
+            address = SCSshield.bitwise_or_bytes(address, bytes([super().Get_Address_A()]) )
+
+            bufval = [b'\xA8',b'\x96',address,b'\x6F',b'\xA4',b'\x00',b'\xA3']
+
+            await self.scsshield.interfaccia_send_COMANDO_7_RAW( bufval )
+            
+            #print("STATO: " + str(stato))
+
+            super().Reset_Change_Stato()
+            await asyncio.sleep(0)
 
 
 
+"""
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 
+CAMPANELLO
 
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+"""
 
+class Campanello(SCSDevice):
+    def __init__(self, scsshield):
+        self.scsshield = scsshield
+        #self.lock_uartTX = lock_uartTX
 
-
-
-
-
+        super().__init__()
+        super().Set_Type(TYPE_INTERfACCIA.campanello_porta)
+        super().Set_Stato(0)
+        super().Reset_Change_Stato()
+    
 
 
 
