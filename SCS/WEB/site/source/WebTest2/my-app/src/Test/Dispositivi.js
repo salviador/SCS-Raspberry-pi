@@ -4,6 +4,9 @@ import Sensori_Temperatura from "./Sensori_Temperatura"
 import Termostati from "./Termostati"
 import Serrande_Tapparelle from "./Serrande_Tapparelle"
 import Dimmer from "./Dimmer"
+import Gruppi from "./Gruppi"
+import Serrature from "./Serrature"
+import Campanello_porta from "./Campanello_porta"
 
 
 import "./../App.css";
@@ -45,9 +48,27 @@ function Dispositivi({ device, mqttdata, clientMWTT }) {
                 <Dimmer device={device} valuedataRT={mqttdata} clientMWTT={clientMWTT}/>
             </>
         );
+    }else if (device.tipo_attuatore === "gruppi") {
+        return (
+            <>
+                <Gruppi device={device} valuedataRT={mqttdata} clientMWTT={clientMWTT}/>
+            </>
+        );
+    }else if (device.tipo_attuatore === "serrature") {
+        return (
+            <>
+                <Serrature device={device} valuedataRT={mqttdata} clientMWTT={clientMWTT}/>
+            </>
+        );
+    }else if (device.tipo_attuatore === "campanello_porta") {
+        return (
+            <>
+                <Campanello_porta device={device} valuedataRT={mqttdata} clientMWTT={clientMWTT}/>
+            </>
+        );
     }
 
-
+    
     
 
     return (

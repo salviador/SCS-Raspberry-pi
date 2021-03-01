@@ -180,6 +180,7 @@ class nodered():
         comment2_flag = True
         comment3_flag = True
         comment4_flag = True
+        comment5_flag = True
 
         query = self.dbm.RICHIESTA_TUTTI_ATTUATORI()
         for q in query:
@@ -350,8 +351,37 @@ class nodered():
                 buildNode.append(fin)
                 buildNode.append(in_mqtt)
 
+            elif(q['tipo_attuatore'] == 'gruppi'):
+                nome = q['nome_attuatore']
+                topicstatus = "/scsshield/device/" + nome + "/status"
+                topiccomando = "/scsshield/device/" + nome + "/switch"
 
+                #Commento
+                comment0 = self.Comment("GRUPPI", self.x + 10, self.y)
+                if(comment5_flag):
+                    self.y_increment()
+                comment1 = self.Comment("Alexa, accendi " + nome, self.x + 100, self.y)
+                comment2 = self.Comment("Alexa, spegni " + nome , self.x + 390, self.y)
+                self.y_increment()
 
+                #out
+                mqqtout = self.Mqtt_out(nome, topiccomando, broker["id"], self.x + 780, self.y )
+                fout = self.function("var value=msg.payload.directive;\n\nif(value===\"TurnOff\"){\nmsg.payload='off';\n}else{\nmsg.payload='on';\n}\n\nreturn msg;", mqqtout['id'], self.x + 570, self.y)
+                alexa = self.vsh_virtual_device(nome, "SCENE", [fout['id']], self.x + 400, self.y)
+                fin = self.function("var value=msg.payload.toLowerCase();\n\nif(value===\"on\"){\nmsg.payload={\"powerState\":\"ON\"};\n}else{\nmsg.payload={\"powerState\":\"OFF\"};\n}\n\nreturn msg;", alexa['id'], self.x + 230, self.y)
+                in_mqtt = self.Mqtt_in(nome, topicstatus, broker["id"], self.x + 30, self.y, fin["id"] )
+                self.y_increment()
+
+                if(comment5_flag):
+                    buildNode.append(comment0)
+                    comment5_flag = False
+                buildNode.append(comment1)
+                buildNode.append(comment2)
+                buildNode.append(mqqtout)
+                buildNode.append(fout)
+                buildNode.append(alexa)
+                buildNode.append(fin)
+                buildNode.append(in_mqtt)
 
 
 

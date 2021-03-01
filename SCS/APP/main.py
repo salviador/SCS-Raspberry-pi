@@ -214,9 +214,12 @@ async def tsk_refresh_database(jqueqe):
 						await scsmqtt.post_to_MQTT_retain_reset("/scsshield/device/" + nomeAtt + "/set_temp_termostato")
 						await scsmqtt.post_to_MQTT_retain_reset("/scsshield/device/" + nomeAtt + "/set_modalita_termostato")
 					elif(tipoAtt == 'gruppi'):
+						await scsmqtt.post_to_MQTT_retain_reset("/scsshield/device/" + nomeAtt + "/switch")
 						await scsmqtt.post_to_MQTT_retain_reset("/scsshield/device/" + nomeAtt + "/status")
 					elif(tipoAtt == 'campanello_porta'):
 						await scsmqtt.post_to_MQTT_retain_reset("/scsshield/device/" + nomeAtt + "/status")
+					elif(tipoAtt == 'serrature'):
+						await scsmqtt.post_to_MQTT_retain_reset("/scsshield/device/" + nomeAtt + "/sblocca")
 
 				except KeyError as k:
 					pass

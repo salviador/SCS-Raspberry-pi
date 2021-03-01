@@ -3,6 +3,8 @@ from contextlib import AsyncExitStack, asynccontextmanager
 from random import randrange
 from asyncio_mqtt import Client, MqttError
 
+import os
+from datetime import datetime
 
 
 
@@ -16,7 +18,7 @@ class SCSMQTT(object):
             # UTF8-encoded string (hence the `bytes.decode` call).
             await self.queue.put(message)
 
-            print(message.payload.decode())
+            #print(message.payload.decode())
 
     async def cancel_tasks(self,tasks):
         for task in tasks:
@@ -30,7 +32,7 @@ class SCSMQTT(object):
 
 
     async def advanced_example(self):
-        self.client = Client("localhost")
+        self.client = Client("localhost", keepalive=60)
 
         # We 💛 context managers. Let's create a stack to help
         # us manage them.
@@ -114,6 +116,9 @@ class SCSMQTT(object):
                 await self.advanced_example()
             except MqttError as error:
                 print(f'Error "{error}". Reconnecting in {reconnect_interval} seconds.')
+                now = datetime.now()
+                dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+                os.popen("sudo echo **MQTT Reconnecting** " + dt_string + " > /dev/kmsg").read()
             finally:
                 await asyncio.sleep(reconnect_interval)
 
