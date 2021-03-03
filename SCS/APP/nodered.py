@@ -332,6 +332,8 @@ class nodered():
                 if(comment4_flag):
                     self.y_increment()
                 comment1 = self.Comment("Alexa, imposta le persiane " + nome + " al cinquanta percento" , self.x + 195, self.y)
+                comment2 = self.Comment("Alexa, apri " + nome , self.x + 350, self.y)
+                comment3 = self.Comment("Alexa, chiudi " + nome , self.x + 590, self.y)
                 self.y_increment()
 
                 #out
@@ -346,6 +348,9 @@ class nodered():
                     buildNode.append(comment0)
                     comment4_flag = False
                 buildNode.append(comment1)
+                buildNode.append(comment2)
+                buildNode.append(comment3)              
+                buildNode.append(mqqtout)
                 buildNode.append(fout)
                 buildNode.append(alexa)
                 buildNode.append(fin)
