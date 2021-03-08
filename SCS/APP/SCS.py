@@ -1168,8 +1168,31 @@ class Campanello(SCSDevice):
         super().Set_Stato(0)
         super().Reset_Change_Stato()
     
+        self.timer = None #Timerelapsed.Timer(10, self._timerCallback_elapsed)
+        self.mqttclient = None
+        self.loop = None
 
+    def register_MQTT_POST(self, mqttclient, loop):
+        self.mqttclient = mqttclient
+        self.loop = loop
 
+    async def _timerCallback_elapsed(self):
+        if(self.mqttclient != None):                
+            self.loop.create_task(self.mqttclient.post_to_MQTT( "/scsshield/device/" + super().Get_Nome_Attuatore() + "/status", "0"))
+
+    def start_timer(self, time):
+        if((self.timer == None)or(self.timer.done()==True)):
+            #print("START TIMER")
+            self.timer = Timerelapsed.Timer(time, self._timerCallback_elapsed)
+            if(self.mqttclient != None):                
+                self.loop.create_task(self.mqttclient.post_to_MQTT( "/scsshield/device/" + super().Get_Nome_Attuatore() + "/status", "1"))
+
+    def stop_timer(self):
+        if(self.timer != None):
+            if(self.timer.done()==False):
+                self.timer.cancel()
+                if(self.mqttclient != None):                
+                    self.loop.create_task(self.mqttclient.post_to_MQTT( "/scsshield/device/" + super().Get_Nome_Attuatore() + "/status", "0"))
 
 
 

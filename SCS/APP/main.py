@@ -55,16 +55,15 @@ lock_uartTX = asyncio.Lock()
 lock_refresh_Database = asyncio.Lock()
 
 
-
-
 ser = Serial(loop,
-        port='/dev/serial0', #Replace ttyS0 with ttyAM0 for Pi1,Pi2,Pi0
-        baudrate = 9600
+		port='/dev/serial0', #Replace ttyS0 with ttyAM0 for Pi1,Pi2,Pi0
+		baudrate = 9600
 )
 
 shield = SCS.SCSshield()
 shield.SetUART(ser)
 scsmqtt = mqtt.SCSMQTT()
+
 
 
 
@@ -156,15 +155,16 @@ def popula_device():
 		elif (item['tipo_attuatore'] == "serrature"):
 			#print("--- DEVICE SERRATURE------------------")
 			serrature = SCS.Serrature(shield)
-			serrature.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
+			serrature.Set_Address(int(item['indirizzo_Ambiente']), 0)
 			serrature.Set_Nome_Attuatore(item['nome_attuatore'])
 			shield.addDevice(serrature)
 
 		elif (item['tipo_attuatore'] == "campanello_porta"):
 			#print("--- DEVICE CAMPANELLO PORTA------------------")
 			campanello = SCS.Campanello(shield)
-			campanello.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
+			campanello.Set_Address(0, int(item['indirizzo_PL']))
 			campanello.Set_Nome_Attuatore(item['nome_attuatore'])
+			campanello.register_MQTT_POST(scsmqtt,loop)
 			shield.addDevice(campanello)
 
 		#POPOLARE CON ALTRI TIPI DI DEVICE
@@ -248,7 +248,7 @@ async def mqtt_action(jqueqe):
 	while(True):
 		try:
 			v = await jqueqe.get()
-			#print(f'{time.ctime()} *MQTT topic_filter* ' f'{v.topic} '  f'{v.payload} ')
+			print(f'{time.ctime()} *MQTT topic_filter* ' f'{v.topic} '  f'{v.payload} ')
 			message = str(v.payload, 'utf-8')
 
 			b = (v.topic).split("/")
@@ -480,7 +480,9 @@ async def deviceReceiver_from_SCSbus(jqueqe):
 
 					# campanello
 					elif((len(trama) == 7) and (trama[1] == b'\x91') and (trama[3] == b'\x60') and (trama[4] == b'\x08') and (type.name == SCS.TYPE_INTERfACCIA.campanello_porta.name)):
-						await scsmqtt.post_to_MQTT("/scsshield/device/" + ndevice + "/status", 1)
+						#await scsmqtt.post_to_MQTT("/scsshield/device/" + ndevice + "/status", 1)
+						device.start_timer(2)
+						
 
 					# Gruppi
 					elif((len(trama) > 7) and (trama[1] == b'\xEC') and (type.name == SCS.TYPE_INTERfACCIA.gruppi.name)):

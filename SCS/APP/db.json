@@ -1,1 +1,1 @@
-{"_default": {"1": {"nome_attuatore": "serranda", "tipo_attuatore": "campanello_porta", "indirizzo_Ambiente": "2", "indirizzo_PL": "2", "timer_salita": 8000, "timer_discesa": 8000}, "2": {"nome_attuatore": "h", "tipo_attuatore": "on_off", "indirizzo_Ambiente": 0, "indirizzo_PL": 0}}}
+{"_default": {}}

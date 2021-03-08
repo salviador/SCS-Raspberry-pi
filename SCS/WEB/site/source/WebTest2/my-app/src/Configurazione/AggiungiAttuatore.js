@@ -98,6 +98,78 @@ function AggiungiAttuatore({handel_AGIUNGInew} ) {
     };
 
 
+    const Address_Select = () => {
+
+        if(optionsStateTipoAttuatori === "campanello_porta"){
+            return(
+                <>
+                    <Col lg={2}>
+                        <Row >
+                            <Col lg={8}><i>Citofono interno</i></Col>
+                            <Col lg={8}>
+                                <input className="form-control" style={{ width: "90%" }} type="number" name="SetTemp" min="0" max="9" step="1" value={indirizzo_PL} onChange={handlChangePUNTOLUCEind} />
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col lg={2}>
+                        <Row>
+                            <Col lg={8}><i></i></Col>
+                            <Col lg={8}>
+                            </Col>
+                        </Row>
+                    </Col>
+    
+                </>
+            );
+        }else if(optionsStateTipoAttuatori === "serrature"){
+            return(
+                <>
+                    <Col lg={2}>
+                        <Row >
+                            <Col lg={8}><i>Posto Esterno</i></Col>
+                            <Col lg={8}>
+                                <input className="form-control" style={{ width: "90%" }} type="number" name="SetTemp" min="0" max="9" step="1" value={indirizzo_A} onChange={handlChangeAMBIENTEind} />
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col lg={2}>
+                        <Row>
+                            <Col lg={8}><i></i></Col>
+                            <Col lg={8}>
+                            </Col>
+                        </Row>
+                    </Col>
+    
+                </>
+            );
+        }else{
+            return(
+                <>
+                    <Col lg={2}>
+                        <Row >
+                            <Col lg={8}><i>Ambiente</i></Col>
+                            <Col lg={8}>
+                               <input className="form-control" style={{ width: "90%" }} type="number" name="SetTemp" min="0" max="9" step="1" value={indirizzo_A} onChange={handlChangeAMBIENTEind} />
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col lg={2}>
+                        <Row>
+                            <Col lg={8}><i>Puno Luce</i></Col>
+                            <Col lg={8}>
+                               <input className="form-control" style={{ width: "90%" }} type="number" name="SetTemp" min="0" max="9" step="1" value={indirizzo_PL} onChange={handlChangePUNTOLUCEind} />
+                            </Col>
+                        </Row>
+                    </Col>
+    
+                </>
+            );
+        }
+    };
+
+
+
+
 
     return (
         <>
@@ -121,22 +193,9 @@ function AggiungiAttuatore({handel_AGIUNGInew} ) {
                     <Card.Body>
                         <Container fluid>
                             <Row >
-                                <Col lg={2}>
-                                    <Row >
-                                        <Col lg={8}><i>Ambiente</i></Col>
-                                        <Col lg={8}>
-                                            <input className="form-control" style={{ width: "90%" }} type="number" name="SetTemp" min="0" max="9" step="1" value={indirizzo_A} onChange={handlChangeAMBIENTEind} />
-                                        </Col>
-                                    </Row>
-                                </Col>
-                                <Col lg={2}>
-                                    <Row>
-                                        <Col lg={8}><i>Puno Luce</i></Col>
-                                        <Col lg={8}>
-                                            <input className="form-control" style={{ width: "90%" }} type="number" name="SetTemp" min="0" max="9" step="1" value={indirizzo_PL} onChange={handlChangePUNTOLUCEind} />
-                                        </Col>
-                                    </Row>
-                                </Col>
+
+                                {Address_Select()}
+
                                 <Col lg={optionsStateTipoAttuatoriTIMER ? 3 : 6} >
                                     <Row >
                                         <Col lg={8}><i>Tipo Attuatore</i></Col>

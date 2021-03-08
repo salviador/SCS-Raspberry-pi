@@ -120,6 +120,94 @@ function Sensore1({ device, handle_CHANHE_NOME, handle_CHANHE_A, handle_CHANHE_P
 
 
 
+    const Address_Campanello = () => {
+        //label = Citofono interno
+
+        return(
+            <>
+
+
+
+            </>
+        );
+
+    };
+
+
+    const Address_Select = () => {
+
+        if(optionsStateTipoAttuatori === "campanello_porta"){
+            return(
+                <>
+                    <Col lg={2}>
+                        <Row >
+                            <Col lg={8}><i>Citofono interno</i></Col>
+                            <Col lg={8}>
+                                <input onChange={handlChangePUNTOLUCEind} className="form-control" style={{ width: "90%" }} min='0' max='9' type="number" name="PuntoLuce" step="1" value={indirizzo_PL} />
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col lg={2}>
+                        <Row>
+                            <Col lg={8}><i></i></Col>
+                            <Col lg={8}>
+                            </Col>
+                        </Row>
+                    </Col>
+    
+                </>
+            );
+        }else if(optionsStateTipoAttuatori === "serrature"){
+            return(
+                <>
+                    <Col lg={2}>
+                        <Row >
+                            <Col lg={8}><i>Posto Esterno</i></Col>
+                            <Col lg={8}>
+                                <input onChange={handlChangeAMBIENTEind} className="form-control" style={{ width: "90%" }} min='0' max='9' type="number" name="Ambiente" step="1" value={indirizzo_A} />
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col lg={2}>
+                        <Row>
+                            <Col lg={8}><i></i></Col>
+                            <Col lg={8}>
+                            </Col>
+                        </Row>
+                    </Col>
+    
+                </>
+            );
+        }else{
+            return(
+                <>
+                    <Col lg={2}>
+                        <Row >
+                            <Col lg={8}><i>Ambiente</i></Col>
+                            <Col lg={8}>
+                                <input onChange={handlChangeAMBIENTEind} className="form-control" style={{ width: "90%" }} min='0' max='9' type="number" name="Ambiente" step="1" value={indirizzo_A} />
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col lg={2}>
+                        <Row>
+                            <Col lg={8}><i>Puno Luce</i></Col>
+                            <Col lg={8}>
+                                <input onChange={handlChangePUNTOLUCEind} className="form-control" style={{ width: "90%" }} min='0' max='9' type="number" name="PuntoLuce" step="1" value={indirizzo_PL} />
+                            </Col>
+                        </Row>
+                    </Col>
+    
+                </>
+            );
+        }
+    };
+
+
+
+
+
+
     return (
         <>
             <Container style={{ paddingTop: "20px" }} >
@@ -134,22 +222,8 @@ function Sensore1({ device, handle_CHANHE_NOME, handle_CHANHE_A, handle_CHANHE_P
                     <Card.Body>
                         <Container fluid>
                             <Row >
-                                <Col lg={2}>
-                                    <Row >
-                                        <Col lg={8}><i>Ambiente</i></Col>
-                                        <Col lg={8}>
-                                            <input onChange={handlChangeAMBIENTEind} className="form-control" style={{ width: "90%" }} min='0' max='9' type="number" name="Ambiente" step="1" value={indirizzo_A} />
-                                        </Col>
-                                    </Row>
-                                </Col>
-                                <Col lg={2}>
-                                    <Row>
-                                        <Col lg={8}><i>Puno Luce</i></Col>
-                                        <Col lg={8}>
-                                            <input onChange={handlChangePUNTOLUCEind} className="form-control" style={{ width: "90%" }} min='0' max='9' type="number" name="PuntoLuce" step="1" value={indirizzo_PL} />
-                                        </Col>
-                                    </Row>
-                                </Col>
+                                {Address_Select()}
+
                                 <Col lg={optionsStateTipoAttuatoriTIMER ? 3 : 6} >
                                     <Row >
                                         <Col lg={8}><i>Tipo Attuatore</i></Col>

@@ -31,12 +31,11 @@ function Campanello_porta({ device, valuedataRT, clientMWTT }) {
                             <Col style={{ textAlign: 'right', fontSize: "12px" }} >
                                 <Row>
                                     <Col style={{ textAlign: 'right', marginRight: "12px" }}>
-                                        Ambiente: {device.indirizzo_Ambiente}
+                                    Citofono interno: {device.indirizzo_PL}
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col style={{ textAlign: 'right', marginRight: "12px" }}>
-                                        Punto Luce: {device.indirizzo_PL}
                                     </Col>
                                 </Row>
                             </Col>
