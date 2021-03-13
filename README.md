@@ -46,4 +46,4 @@
 * <code>Dopo il riavvio http://ip-di-raspberry</code>
 
 **Configurazione e Utilizzo**
-* <code><a href="https://scsshields.altervista.org/">https://scsshields.altervista.org/</a></code>
+* <code><a href="http://scsshields.altervista.org/">http://scsshields.altervista.org/</a></code>
