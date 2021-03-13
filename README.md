@@ -38,7 +38,7 @@
 
 **Installazione**
 * <code>sudo apt-get update</code>
-* <code>Dal Terminale SSH, digitare git clone https://github.com/salviador/SCS-Raspberry-pi.git</code>
+* Dal Terminale SSH, digitare <code>git clone https://github.com/salviador/SCS-Raspberry-pi.git</code>
 * <code>cd SCS-Raspberry-pi/SCS/</code>
 * <code>sudo chmod +x setup.sh</code>
 * <code>sudo ./setup.sh</code>
@@ -46,4 +46,4 @@
 * <code>Dopo il riavvio http://ip-di-raspberry</code>
 
 **Configurazione e Utilizzo**
-* <code><a href="https://scsshield.altervista.org/">https://scsshield.altervista.org/</a></code>
+* <code><a href="https://scsshields.altervista.org/">https://scsshields.altervista.org/</a></code>
