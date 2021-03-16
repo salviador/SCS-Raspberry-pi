@@ -340,7 +340,7 @@ class nodered():
                 mqqtout = self.Mqtt_out(nome, topiccomando, broker["id"], self.x + 860, self.y)
                 fout = self.function("var value=msg.payload;\n\nmsg.payload=value.percentage;\nreturn msg;", mqqtout['id'], self.x + 650, self.y)
                 alexa = self.vsh_virtual_device(nome, "BLINDS", [fout['id']], self.x + 480, self.y)
-                fin = self.function("var value=msg.payload;\nvar numv=parseInt(value);\nnmsg.payload={\"percentage\": numv};\nreturn msg;", alexa['id'], self.x + 310, self.y)
+                fin = self.function("var value=msg.payload;\nvar numv=parseInt(value);\nmsg.payload={\"percentage\": numv};\nreturn msg;", alexa['id'], self.x + 310, self.y)
                 in_mqtt = self.Mqtt_in(nome, topicstatus, broker["id"], self.x + 110, self.y, fin["id"] )
                 self.y_increment()
 
