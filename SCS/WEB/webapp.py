@@ -33,6 +33,7 @@ dir_path_app = s + 'APP/'
 
 databaseAttuatori = importlib.machinery.SourceFileLoader('databaseAttuatori', dir_path_app + 'databaseAttuatori.py').load_module()
 nodered = importlib.machinery.SourceFileLoader('nodered', dir_path_app + 'nodered.py').load_module()
+noderedAWS = importlib.machinery.SourceFileLoader('noderedAWS', dir_path_app + 'noderedAWS.py').load_module()
 
 
 
@@ -94,6 +95,12 @@ class Testandler(tornado.web.RequestHandler):
 class noderedAlexaandler(tornado.web.RequestHandler):
     def get(self):
         self.render('site/build/index.html')
+class noderedHomeHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('site/build/index.html')
+class NoderedAlexaAWSHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('site/build/index.html')
 
 
 
@@ -148,10 +155,27 @@ class GetConfigurazione_JSONreact(tornado.web.RequestHandler):
             #smod = re.sub("\s+", "_", s.strip())
             smod = s
 
+            temp = dict()
+
+            temp['nome_attuatore'] = s
+            temp['tipo_attuatore'] = item['tipo_attuatore']
+            temp['indirizzo_Ambiente'] = item['indirizzo_Ambiente']
+            temp['indirizzo_PL'] = item['indirizzo_PL']
+
+            if (("timer_salita" in item) and ("timer_discesa" in item)):
+                temp['timer_salita'] = item['timer_salita']
+                temp['timer_discesa'] = item['timer_discesa']
+
+            if ("nome_endpoint" in item) :
+                temp['nome_endpoint'] = item['nome_endpoint']
+
+            lista_attuatori.append(temp)
+            """
             if (("timer_salita" in item) and ("timer_discesa" in item)):
                 lista_attuatori.append({'nome_attuatore' : s ,'tipo_attuatore': item['tipo_attuatore'], 'indirizzo_Ambiente' : item['indirizzo_Ambiente'] ,'indirizzo_PL': item['indirizzo_PL'], 'timer_salita': item['timer_salita'], 'timer_discesa': item['timer_discesa']})
             else:
                 lista_attuatori.append({'nome_attuatore' : s ,'tipo_attuatore': item['tipo_attuatore'], 'indirizzo_Ambiente' : item['indirizzo_Ambiente'] ,'indirizzo_PL': item['indirizzo_PL']})
+            """
 
         #print("*****" , lista_attuatori)
         self.write(json.dumps(lista_attuatori))   
@@ -323,6 +347,158 @@ class Get_NodeRed_manual_flow(tornado.web.RequestHandler):
         js = n.gennera_NodeRed_database()
 
         self.write(js)
+class Get_NodeRedAWS_manual_flow(tornado.web.RequestHandler):
+    def get(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+
+        n = noderedAWS.noderedAWS()
+        js = n.gennera_NodeRed_database()
+
+        self.write(js)
+
+
+# ******************** AWS **************************
+# ******************** AWS **************************
+# ******************** AWS **************************
+
+# UPLOAD FILE CERTIFICATI
+class AWSCertificatiploadHandler(tornado.web.RequestHandler):
+    #x react
+    def options(self):
+        self.set_header('Cache-Control', 'no-store, no-cache, must-   revalidate, max-age=0')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "Content-Type")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')        
+        self.set_status(204)
+        self.finish()
+
+    def post(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        #print(self.get_arguments('tipo')[0])
+        #print(self.request.files)
+
+        if(os.path.isdir('/home/pi/AWSConfig/') == False):
+            #Crea directory
+            try:
+                os.mkdir('/home/pi/AWSConfig/')
+            except Exception as e:
+                pass
+
+        if len(self.request.files) == 1:
+            key = list(self.request.files)
+            if(self.get_arguments('tipo')[0] == 'PRIVATE_KEY'):
+                file_name = self.request.files[key[0]][0]['filename']
+                fname, file_extension = os.path.splitext(file_name)
+                if(file_extension.lower() == '.key'):
+                    #rename and save
+                    with open('/home/pi/AWSConfig/awsiot.private.key', 'wb') as f:
+                        f.write(self.request.files[key[0]][0]['body'])
+
+            if(self.get_arguments('tipo')[0] == 'CERT_PEM'):
+                file_name = self.request.files[key[0]][0]['filename']
+                fname, file_extension = os.path.splitext(file_name)
+                if(file_extension.lower() == '.crt'):
+                    #rename and save
+                    with open('/home/pi/AWSConfig/awsiot.cert.pem', 'wb') as f:
+                        f.write(self.request.files[key[0]][0]['body'])
+
+            if(self.get_arguments('tipo')[0] == 'root-CA'):
+                file_name = self.request.files[key[0]][0]['filename']
+                fname, file_extension = os.path.splitext(file_name)
+                if(file_extension.lower() == '.pem'):
+                    #rename and save
+                    with open('/home/pi/AWSConfig/root-CA.crt', 'wb') as f:
+                        f.write(self.request.files[key[0]][0]['body'])
+
+        self.write(json.dumps({'status':'ok'}))
+
+# GET CONFIGURAZIONE AWS
+class GetConfigurazionereactAWSHandler(tornado.web.RequestHandler):
+    #x react
+    def options(self):
+        self.set_header('Cache-Control', 'no-store, no-cache, must-   revalidate, max-age=0')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "Content-Type")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')        
+        self.set_status(204)
+        self.finish()
+
+    def get(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+
+        print("GetConfigurazionereactAWS.json -> GET")
+
+        EndPoint = ''
+        if(os.path.isfile('/home/pi/AWSConfig/EndPoint') == True):
+            with open('/home/pi/AWSConfig/EndPoint') as fp:
+                EndPoint = fp.readline()
+
+        PRIVATE_KEY = ''
+        if(os.path.isfile('/home/pi/AWSConfig/awsiot.private.key') == True):
+            PRIVATE_KEY = 'awsiot.private.key'
+
+        CERT_PEM = ''
+        if(os.path.isfile('/home/pi/AWSConfig/awsiot.cert.pem') == True):
+            CERT_PEM = 'awsiot.cert.pem'
+
+        CRT = ''
+        if(os.path.isfile('/home/pi/AWSConfig/root-CA.crt') == True):
+            CRT = 'root-CA.crt'
+
+        js = json.dumps({'EndPoint': EndPoint, 'PRIVATE_KEY': PRIVATE_KEY, 'CERT_PEM': CERT_PEM, 'CRT':CRT})
+        self.write(js)
+
+    def post(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+
+        data = json.loads(self.request.body)
+
+        if(os.path.isdir('/home/pi/AWSConfig/') == False):
+            #Crea directory
+            try:
+                os.mkdir('/home/pi/AWSConfig/')
+            except Exception as e:
+                pass
+        with open('/home/pi/AWSConfig/EndPoint', 'w') as f:
+            f.write(data['EndPoint'])
+
+        self.write(json.dumps({'status':'ok'}))
+
+# SET DEVICE ENDPOINT in AWS
+class SetDeviceEndPointAWS(tornado.web.RequestHandler):
+    #x react
+    def options(self):
+        self.set_header('Cache-Control', 'no-store, no-cache, must-   revalidate, max-age=0')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "Content-Type")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')        
+        self.set_status(204)
+        self.finish()
+
+    def post(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+
+        data = json.loads(self.request.body)
+        if (("nome_attuatore" in data) and ("nome_endpoint" in data)):
+            dbm.AGGIORNA_ATTUATORE_x_AWS_ENDPOINT(data['nome_attuatore'], data['nome_endpoint'])
+
+        self.write(json.dumps({'status':'ok'}))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -345,6 +521,8 @@ def make_app():
         (r"/test.html", Testandler),
         (r"/configurazione.html", ConfigurazioneHandler),
         (r"/noderedAlexa.html", noderedAlexaandler),
+        (r"/noderedHome.html", noderedHomeHandler),
+        (r"/NoderedAlexaAWS.html", NoderedAlexaAWSHandler),
 
 
         
@@ -363,6 +541,16 @@ def make_app():
         #Node red
         (r"/Send_to_NodeRed.json", Send_to_NodeRed),
         (r"/Get_NodeRed_manual_flow.json", Get_NodeRed_manual_flow),
+        (r"/Get_NodeRedAWS_manual_flow.json", Get_NodeRedAWS_manual_flow),
+
+
+ 
+
+
+        #AWS certificati Upload
+        (r"/AWSCertificatiploadHandler.html", AWSCertificatiploadHandler),
+        (r"/GetConfigurazionereactAWS.json", GetConfigurazionereactAWSHandler),
+        (r"/SetDeviceEndPointAWS.json", SetDeviceEndPointAWS),
 
 
 

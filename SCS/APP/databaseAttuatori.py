@@ -86,6 +86,11 @@ class configurazione_database:
             UUID = Query()
             self.db.update({ 'timer_discesa' : timer_discesa} ,
                 UUID.nome_attuatore == nome_attuatore)   
+    def AGGIORNA_ATTUATORE_x_AWS_ENDPOINT(self,nome_attuatore,nome_endpoint):
+        if(self.CHECHK_ESISTE_ATTUATORE(nome_attuatore)==True):
+            UUID = Query()
+            self.db.update({ 'nome_endpoint' : nome_endpoint} ,
+                UUID.nome_attuatore == nome_attuatore)   
 
 
 
