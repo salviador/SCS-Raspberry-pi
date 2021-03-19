@@ -11,15 +11,19 @@ import "./../App.css";
 function Homepage() {
     let history = useHistory();
 
-    const handleClickConfigurazioni = () =>{
+    const handleClickConfigurazioni = () => {
 
         history.push("configurazione.html");
 
     };
-    const handleClickTest= () =>{
+    const handleClickTest = () => {
         history.push("test.html");
     };
+    const handleClickNodeRed = () => {
+        history.push("noderedHome.html");
+    };
 
+    
 
     return (
         <>
@@ -70,6 +74,21 @@ function Homepage() {
                             <button type="button" className="btn btn-lg btn-block btn-primary idTest" onClick={handleClickTest} >Entra</button>
                         </div>
                     </div>
+
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-header">
+                        <h4 className="my-0 font-weight-normal">Node-RED</h4>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <ul className="list-unstyled mt-3 mb-4">
+                                <li>AWS IoTs</li>
+                                <li>Alexa virtual-smart-home</li>
+                            </ul>
+                            <button type="button" class="btn btn-lg btn-block btn-primary mt-auto" onClick={handleClickNodeRed}>Entra</button>
+                        </div>
+                    </div>
+
+
                 </div>
 
 
