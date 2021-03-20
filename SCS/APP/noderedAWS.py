@@ -305,7 +305,7 @@ class noderedAWS():
                     in_mqtt_2 = self.Mqtt_in(nome, topicstatus, broker["id"], self.x + 60, self.y, fout_2["id"] )
                     self.y_half_increment()
                     mqqtout_3 = self.Mqtt_out('AWS-IN', "/scsshield/AWSIOT/in", broker["id"], self.x + 510, self.y)
-                    fout_3 = self.function("var value=msg.payload.toLowerCase();\n\nmsg.payload={\n\"id\": \"" + nome_endpoint + "\",\n\"stato\": value.toString(),\n\"tipo\": \"Alexa.BrightnessController\"\n}\n\nreturn msg;", mqqtout_3['id'], self.x + 330, self.y )
+                    fout_3 = self.function("var value=msg.payload.toLowerCase();\n\nmsg.payload={\n\"id\": \"" + nome_endpoint + "_S\",\n\"stato\": value.toString(),\n\"tipo\": \"Alexa.BrightnessController\"\n}\n\nreturn msg;", mqqtout_3['id'], self.x + 330, self.y )
                     in_mqtt_3 = self.Mqtt_in(nome + '-percentuale', topicstatusPerc, broker["id"], self.x + 60, self.y, fout_3["id"] )
 
 
