@@ -84,7 +84,7 @@ function Homepage() {
                                 <li>AWS IoTs</li>
                                 <li>Alexa virtual-smart-home</li>
                             </ul>
-                            <button type="button" class="btn btn-lg btn-block btn-primary mt-auto" onClick={handleClickNodeRed}>Entra</button>
+                            <button type="button" class="btn btn-lg btn-block btn-primary mt-auto" style={{marginBottom:'1em'}} onClick={handleClickNodeRed}>Entra</button>
                         </div>
                     </div>
 

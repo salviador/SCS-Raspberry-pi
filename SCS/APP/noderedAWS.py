@@ -488,7 +488,7 @@ class noderedAWS():
                         self.y_increment()
 
                     aws_mqtt_outcamp = self.Aws_mqtt_out( aws_iot_device['id'], "ESP8266/out/event", self.x + 480, self.y )
-                    fout_1 = self.function("var value=msg.payload.toLowerCase();\n\n\nmsg.payload={\n\"id\": \"doorbell-01\",\n\"stato\": \"PHYSICAL_INTERACTION\"\n}\nmsg.topic = \"ESP8266/out/event\"\nreturn msg;", aws_mqtt_outcamp['id'], self.x + 310, self.y )
+                    fout_1 = self.function("var value=msg.payload.toLowerCase();\n\n\nmsg.payload={\n\"id\": \"" + nome_endpoint + "\",\n\"stato\": \"PHYSICAL_INTERACTION\"\n}\nmsg.topic = \"ESP8266/out/event\"\nreturn msg;", aws_mqtt_outcamp['id'], self.x + 310, self.y )
                     in_mqtt_1 = self.Mqtt_in(nome, topicstatus, broker["id"], self.x + 60, self.y, fout_1["id"] )
 
                     self.y_increment()
