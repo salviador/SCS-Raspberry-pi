@@ -498,7 +498,8 @@ async def deviceReceiver_from_SCSbus(jqueqe):
 							await scsmqtt.post_to_MQTT("/scsshield/device/" + ndevice + "/temperatura_termostato_impostata", temperature_di_Setting )
 
 					# TERMOSTATO <<Temperatura di settaggio>> e <<Modalità freddo o caldo>>
-					elif((len(trama) > 7) and (trama[1] == b'\xD2') and (trama[3] == b'\x03') and (trama[4] == b'\x04') and (trama[5] == b'\x12') and (type.name == SCS.TYPE_INTERfACCIA.termostati.name)):
+					#elif((len(trama) > 7) and (trama[1] == b'\xD2') and (trama[3] == b'\x03') and (trama[4] == b'\x04') and (trama[5] == b'\x12') and (type.name == SCS.TYPE_INTERfACCIA.termostati.name)):
+					elif((len(trama) > 7) and (trama[1] == b'\xD2') and (trama[3] == b'\x03') and (SCS.bitwise_and_bytes(trama[4], b'\x0F') == b'\x04') and (trama[5] == b'\x12') and (type.name == SCS.TYPE_INTERfACCIA.termostati.name)):
 						msb = int.from_bytes(trama[7], "big")
 						lsb = int.from_bytes(trama[8], "big")
 						tempv  = msb * 256 + lsb
