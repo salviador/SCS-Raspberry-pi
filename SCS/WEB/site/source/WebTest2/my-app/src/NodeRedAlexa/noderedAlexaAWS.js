@@ -260,7 +260,7 @@ function NoderedAlexaAWS() {
                                     "{FILE_root_CA}"
                                 </Col>
                                 <Col lg={3} className="text-center">
-                                    <input type="file" name="file" accept=".pem" onChange={changeHandler} />
+                                    <input type="file" name="file" accept=".pem,.txt" onChange={changeHandler} />
                                 </Col>
                                 <Col className="text-center">
                                     <button onClick={() => handleSubmission('root-CA')}>Submit</button>

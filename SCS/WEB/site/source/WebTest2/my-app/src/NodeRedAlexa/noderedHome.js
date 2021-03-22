@@ -23,6 +23,9 @@ function NoderedHome() {
                         <div className="card-header">
                             <h4 className="my-0 font-weight-normal">NodeRed AWS</h4>
                         </div>
+                        <div>
+                            <p><i><small>Configurare prima AWS Server: <a href="http://scsshields.altervista.org/AWS_Skill_Bticino.html" target="_blank">Guida</a></small></i></p>
+                        </div>
                         <div className="card-body">
                             <ul className="list-unstyled mt-3 mb-4">
                                 <li>                                    

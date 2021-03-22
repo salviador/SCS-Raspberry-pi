@@ -11,6 +11,8 @@
   <img src="raspberry2.jpg" width="300" />
 </p>
 
+**Contatti**
+* <code><a href="http://scsshields.altervista.org/contatti.html">Contatti</a></code>
 
 **Caratteristiche**
 
@@ -47,3 +49,5 @@
 
 **Configurazione e Utilizzo**
 * <code><a href="http://scsshields.altervista.org/">http://scsshields.altervista.org/</a></code>
+
+
