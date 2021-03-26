@@ -108,32 +108,28 @@ class configurazione_database:
     
     def RICHIESTA_TUTTI_ATTUATORI(self):
         query = self.db.all()
-        order = list()
+    
+        #---------------------------------------------------
+        all_att = list()
+        #Sort "nome_attuatore" in ordine alfanumerico
+        alldev_nome_attuatore = list()
         for q in query:
-            if(q['tipo_attuatore'] == 'on_off'):
-                order.append(q)
-        for q in query:
-            if(q['tipo_attuatore'] == 'dimmer'):
-                order.append(q)
-        for q in query:
-            if(q['tipo_attuatore'] == 'gruppi'):
-                order.append(q)
-        for q in query:
-            if(q['tipo_attuatore'] == 'serrande_tapparelle'):
-                order.append(q)
-        for q in query:
-            if(q['tipo_attuatore'] == 'sensori_temperatura'):
-                order.append(q)
-        for q in query:
-            if(q['tipo_attuatore'] == 'termostati'):
-                order.append(q)
-        for q in query:
-            if(q['tipo_attuatore'] == 'serrature'):
-                order.append(q)
-        for q in query:
-            if(q['tipo_attuatore'] == 'campanello_porta'):
-                order.append(q)
-        return order
+            alldev_nome_attuatore.append(q['nome_attuatore'])
+        alldev_nome_attuatore.sort()
+        #crea una nuova lista di device in ordine alfanumerico
+        for nome_att in alldev_nome_attuatore:
+            for q in query:
+                if(q['nome_attuatore'] == nome_att):
+                    all_att.append(q)
+        #Ordina per tipo
+        ordine_x_tipo = ['on_off','dimmer', 'serrande_tapparelle', 'sensori_temperatura', 'termostati', 'serrature', 'campanello_porta', 'gruppi']
+        all_attuatori = list()
+        for ord_tipo in ordine_x_tipo:
+            for q in all_att:
+                if(ord_tipo == q['tipo_attuatore']):
+                    all_attuatori.append(q)
+
+        return all_attuatori
 
     def RIMUOVE_ATTUATORE(self,nome_attuatore):
         if(self.CHECHK_ESISTE_ATTUATORE(nome_attuatore)==True):

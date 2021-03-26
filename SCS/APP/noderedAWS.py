@@ -443,7 +443,7 @@ class noderedAWS():
                     in_mqtt_4 = self.Mqtt_in(nome, topicTemp_Termostato, broker["id"], self.x + 60, self.y, fout_4["id"] )
                     self.y_half_increment()
                     mqqtout_5 = self.Mqtt_out('AWS-IN', "/scsshield/AWSIOT/in", broker["id"], self.x + 510, self.y)
-                    fout_5 = self.function("var value=msg.payload.toLowerCase();\n\nvar m=\"\";\n\nif(value === 'off'){\nm=\"5\";\n}else if(value === 'inverno'){\nm=\"3\";\n}else if(value === 'estate'){\nm=\"4\";\n}\n\n\nmsg.payload={\n\"id\": \"" + nome_endpoint + "\" + \"_M\",\n\"stato\": m,\n\"tipo\": \"Alexa.ThermostatController\"\n}\n\nreturn msg;", mqqtout_5['id'], self.x + 330, self.y )
+                    fout_5 = self.function("var value=msg.payload.toLowerCase();\n\nvar m=\"\";\n\nif(value === 'off'){\nm=\"5\";\n}else if(value === 'estate'){\nm=\"3\";\n}else if(value === 'inverno'){\nm=\"4\";\n}\n\n\nmsg.payload={\n\"id\": \"" + nome_endpoint + "\" + \"_M\",\n\"stato\": m,\n\"tipo\": \"Alexa.ThermostatController\"\n}\n\nreturn msg;", mqqtout_5['id'], self.x + 330, self.y )
                     in_mqtt_5 = self.Mqtt_in(nome, topicstatusmod, broker["id"], self.x + 60, self.y, fout_5["id"] )
 
 

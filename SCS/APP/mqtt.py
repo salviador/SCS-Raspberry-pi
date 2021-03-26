@@ -77,7 +77,7 @@ class SCSMQTT(object):
     async def post_to_topics(self,topic):
         try:
             message = randrange(100)
-            print(f'[topic="{topic}"] Publishing message={message}')
+            #print(f'[topic="{topic}"] Publishing message={message}')
             await self.client.publish(topic, message, qos=1)
         except Exception as e:
             print("MQTT ERROR - PUBLISH ")
