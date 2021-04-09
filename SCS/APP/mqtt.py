@@ -33,7 +33,7 @@ class SCSMQTT(object):
 
     async def advanced_example(self):
         
-        self.client = Client("localhost") #, keepalive=60
+        self.client = Client("localhost", keepalive=65535) #, keepalive=60
 
         # We 💛 context managers. Let's create a stack to help
         # us manage them.
