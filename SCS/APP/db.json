@@ -1,1 +1,1 @@
-{"_default": {}}
+{"_default": {"1": {"nome_attuatore": "faretti", "tipo_attuatore": "on_off", "indirizzo_Ambiente": 0, "indirizzo_PL": 0}, "2": {"nome_attuatore": "luce camera", "tipo_attuatore": "on_off", "indirizzo_Ambiente": 0, "indirizzo_PL": 0}, "3": {"nome_attuatore": "luce corridoio", "tipo_attuatore": "on_off", "indirizzo_Ambiente": 0, "indirizzo_PL": 0}}}

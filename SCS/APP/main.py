@@ -7,11 +7,10 @@ from gpiozero import LED
 import subprocess
 
 import SCS
-import mqtt
+import mqtt2
 from asyncserial import Serial
 
 import databaseAttuatori
-import mqtt
 
 import nodered
 
@@ -60,9 +59,12 @@ ser = Serial(loop,
 		baudrate = 9600
 )
 
+STOP = asyncio.Event()
+
+
 shield = SCS.SCSshield()
 shield.SetUART(ser)
-scsmqtt = mqtt.SCSMQTT()
+scsmqtt = mqtt2.SCSMQTT2(STOP)
 
 
 
@@ -248,12 +250,16 @@ async def mqtt_action(jqueqe):
 	while(True):
 		try:
 			v = await jqueqe.get()
-			print(f'{time.ctime()} *MQTT topic_filter* ' f'{v.topic} '  f'{v.payload} ')
-			message = str(v.payload, 'utf-8')
 
-			b = (v.topic).split("/")
+			topic = v["topic"]
+			payload = v["payload"]
+
+			#print(f'{time.ctime()} *MQTT topic_filter* ' f'{topic} '  f'{payload} ')
+			message = str(payload, 'utf-8')
+
+			b = (topic).split("/")
 			mtopicbase = ('/' + b[1] + '/' + b[2] + '/')
-			if( scsmqtt.topic_filter[:-1] in mtopicbase ):
+			if( "/scsshield/device/#"[:-1] in mtopicbase ):
 				device_name = b[3]
 				devices= shield.getDevices()
 				for device in devices:
@@ -339,7 +345,7 @@ async def mqtt_action(jqueqe):
 								cmd1 = loop.create_task( device.Sblocca(lock_uartTX) )
 								await (cmd1)
 
-			elif(v.topic == '/scsshield/SendtoBus'):
+			elif(topic == '/scsshield/SendtoBus'):
 				s1 = message.split(' ')
 				s2 = message.split(',')
 				sx = list()
@@ -560,11 +566,6 @@ async def deviceReceiver_from_SCSbus(jqueqe):
 
 
 
-
-
-
-
-
 async def start_tornado(jqueqe, jqueqeNodeRed):
 	print(f'{time.ctime()} WEB SERVER start')
 
@@ -580,6 +581,23 @@ async def start_tornado(jqueqe, jqueqeNodeRed):
 
 	webapp.tornado.platform.asyncio.AsyncIOMainLoop().install()
 	#print(f'{time.ctime()} EXIT WEB SERVER')
+
+
+
+
+
+
+
+async def TEST_PUB():
+	while(True):
+		await scsmqtt.post_to_MQTT("test", "onddddddddddddd")
+		await scsmqtt.post_to_MQTT("test", "xxxxxxxxxxxx")
+		await asyncio.sleep(5)
+
+
+
+
+
 
 
 async def main():
@@ -609,10 +627,14 @@ async def main():
 	tasks.append(loop.create_task( deviceReceiver_from_SCSbus(queue_rx_trama_data_found.async_q)           ))
 
 	tasks.append(asyncio.create_task( scsmqtt.main(queue_mqtt_action.async_q)        ))
+	#tasks.append(loop.create_task( scsmqtt.main(queue_mqtt_action.async_q)        ))
+	
 	tasks.append(loop.create_task( mqtt_action(queue_mqtt_action.async_q)           ))
 
-
 	tasks.append(loop.create_task( Node_Red_flow(queue_node_red_action.async_q)           ))
+
+	tasks.append(loop.create_task( TEST_PUB()           ))
+
 
 
 
