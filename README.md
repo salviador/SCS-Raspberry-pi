@@ -44,6 +44,8 @@
 * <code>cd SCS-Raspberry-pi/SCS/</code>
 * <code>sudo chmod +x setup.sh</code>
 * <code>sudo ./setup.sh</code>
+* <code>sudo pip3 install gmqtt</code>
+* <code>sudo pip3 install uvloop</code>
 * <code>sudo reboot</code>
 * <code>Dopo il riavvio http://ip-di-raspberry</code>
 
