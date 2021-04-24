@@ -47,7 +47,7 @@
 * <code>sudo pip3 install gmqtt</code>
 * <code>sudo pip3 install uvloop</code>
 * <code>sudo reboot</code>
-* <code>Dopo il riavvio http://ip-di-raspberry</code>
+* <code>Dopo il riavvio http://raspberrypi.local</code>
 
 **Configurazione e Utilizzo**
 * <code><a href="http://scsshields.altervista.org/">http://scsshields.altervista.org/</a></code>
