@@ -127,7 +127,16 @@ def popula_device():
 		elif (item['tipo_attuatore'] == "sensori_temperatura"):
 			#print("--- DEVICE sensori_temperatura------------------")
 			sensore = SCS.Sensori_Temperatura(shield)
-			sensore.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
+			#sensore.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
+
+			new_add = hex(int(item['indirizzo_Ambiente']) * 10 +  int(item['indirizzo_PL']))
+			
+			if(len(new_add)==3):
+				new_add = new_add[0] + new_add[1] + '0' + new_add[2]
+				print('corretto' , new_add)
+
+			sensore.Set_Address(int(new_add[2],16), int(new_add[3],16))
+
 			sensore.Set_Nome_Attuatore(item['nome_attuatore'])
 			shield.addDevice(sensore)
 			loop.create_task( sensore.Forza_la_lettura_Temperatura(lock_uartTX) )
@@ -138,11 +147,23 @@ def popula_device():
 			termostato.Set_obj_SensoreTemp( SCS.Sensori_Temperatura(shield) )
 			sensore = termostato.Get_obj_SensoreTemp()
 
-			sensore.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
+			#sensore.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
+
+			new_add = hex(int(item['indirizzo_Ambiente']) * 10 +  int(item['indirizzo_PL']))
+			if(len(new_add)==3):
+				new_add = new_add[0] + new_add[1] + '0' + new_add[2]
+			sensore.Set_Address(int(new_add[2],16), int(new_add[3],16))
+
 			sensore.Set_Nome_Attuatore(item['nome_attuatore'])
 			shield.addDevice(sensore)
 
-			termostato.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
+			#termostato.Set_Address(int(item['indirizzo_Ambiente']), int(item['indirizzo_PL']))
+
+			new_add = hex(int(item['indirizzo_Ambiente']) * 10 +  int(item['indirizzo_PL']))
+			if(len(new_add)==3):
+				new_add = new_add[0] + new_add[1] + '0' + new_add[2]
+			termostato.Set_Address(int(new_add[2],16), int(new_add[3],16))
+
 			termostato.Set_Nome_Attuatore(item['nome_attuatore'])
 			shield.addDevice(termostato)
 			loop.create_task( sensore.Forza_la_lettura_Temperatura(lock_uartTX) )
@@ -430,8 +451,13 @@ async def deviceReceiver_from_SCSbus(jqueqe):
 				address = SCS.bitwise_and_bytes(address, b'\xF0')
 				address = SCS.bitwise_or_bytes(address, bytes([addPL]) )
 				
+				BUS_address_attuatore = trama[2]
+
+
 				#Address MATCH ?
-				if(address == trama[2]):
+				#if(address == trama[2]):
+				if(address == BUS_address_attuatore):
+				
 					# SWITCH
 					if((len(trama) == 7) and (trama[1] == b'\xB8') and (type.name == SCS.TYPE_INTERfACCIA.on_off.name)):
 						statoDevice_in_Bus = int.from_bytes(trama[4], "big")
