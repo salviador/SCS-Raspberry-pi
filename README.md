@@ -32,13 +32,17 @@
 
 **Prerequisiti e preparazione dell'installazione**
 
-* <code>Scaricare <a href="https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit" target="_blank"> Raspberry Pi OS with desktop and recommended software</a>
-  Seguire tutte le istruzioni sul sito raspberry ufficiale</code>
+
+* Consiglio questa versione di raspberry "2021-05-07-raspios-buster-armhf-full.zip"
+scaricabile nel seguente <a href="https://drive.google.com/file/d/1n9x76HdiFXM_pIzgByjm45ASKpH6mBKp/view" target="_blank"> link </a>
 * <code><a href="https://phoenixnap.com/kb/enable-ssh-raspberry-pi" target="_blank">Abilitare SSH</a></code>
 * <code> <a href="http://projects.privateeyepi.com/home/home-alarm-system-project/wireless-projects/configure-the-serial-port-on-rpi2-and-rpi3" target="_blank">Abilitare la Porta Seriale</a> <u><i>per chi usa la Raspberry pi 3 disabilitare il Bluetooth</i></u></code>
 
 
+
+
 **Installazione**
+* <code>sudo apt full-upgrade</code>
 * <code>sudo apt-get update</code>
 * Dal Terminale SSH, digitare <code>git clone https://github.com/salviador/SCS-Raspberry-pi.git</code>
 * <code>cd SCS-Raspberry-pi/SCS/</code>
