@@ -24,6 +24,11 @@ if  [[ ! ${#line} -gt 1 ]]
 then
     sudo echo -e "protocol websockets\n" >> /etc/mosquitto/mosquitto.conf
 fi
+line=$(grep -rnw '/etc/mosquitto/mosquitto.conf' -e 'allow_anonymous true')
+if  [[ ! ${#line} -gt 1 ]]
+then
+    sudo echo -e "allow_anonymous true\n" >> /etc/mosquitto/mosquitto.conf
+fi
 sleep 5
 sudo systemctl stop mosquitto
 sleep 5
