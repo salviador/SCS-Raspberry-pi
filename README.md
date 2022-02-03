@@ -36,7 +36,9 @@
 * Consiglio questa versione di raspberry "2021-05-07-raspios-buster-armhf-full.zip"
 scaricabile nel seguente <a href="https://drive.google.com/file/d/1n9x76HdiFXM_pIzgByjm45ASKpH6mBKp/view" target="_blank"> link </a>
 * <code><a href="https://phoenixnap.com/kb/enable-ssh-raspberry-pi" target="_blank">Abilitare SSH</a></code>
-* <code> <a href="http://projects.privateeyepi.com/home/home-alarm-system-project/wireless-projects/configure-the-serial-port-on-rpi2-and-rpi3" target="_blank">Abilitare la Porta Seriale</a> <u><i>per chi usa la Raspberry pi 3 disabilitare il Bluetooth</i></u></code>
+* <code> <a href="https://spellfoundry.com/2016/05/29/configuring-gpio-serial-port-raspbian-jessie-including-pi-3-4/" target="_blank">Abilitare la Porta Seriale</a> <u><i>per chi usa la Raspberry pi 3 disabilitare il Bluetooth</i></u></code>
+* <code> <a href="https://di-marco.net/blog/it/2020-04-18-tips-disabling_bluetooth_on_raspberry_pi/" target="_blank">Guida per disabilitare il Bluetooth</a></code>
+
 
 
 
