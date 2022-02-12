@@ -1,6 +1,6 @@
 <p align="center">
   <h1 align="center"> SCS-Raspberry-pi shield</h1>
-  <h3 align="center">senza Gateway</h3>
+  <h3 align="center">Senza Gateway</h3>
   
   <div align="center">
     <a href="https://scsshield.altervista.org/">https://scsshield.altervista.org/</a>
