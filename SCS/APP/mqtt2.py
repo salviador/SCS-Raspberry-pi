@@ -36,7 +36,7 @@ class SCSMQTT2(object):
 
     def on_connect(self, client, flags, rc, properties):
         print(' connected')
-        self.client.subscribe('/scsshield/device/#', qos=0)
+        self.client.subscribe('/scsshield/#', qos=0)
 
 
     async def on_message(self, client, topic, payload, qos, properties):
