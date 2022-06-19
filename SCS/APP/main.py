@@ -8,7 +8,7 @@ import subprocess
 
 import SCS
 import mqtt2
-from asyncserial import Serial
+from serialhandler import SerialHandler
 
 import databaseAttuatori
 
@@ -54,7 +54,7 @@ lock_uartTX = asyncio.Lock()
 lock_refresh_Database = asyncio.Lock()
 
 
-ser = Serial(loop,
+ser = SerialHandler(
 		port='/dev/serial0', #Replace ttyS0 with ttyAM0 for Pi1,Pi2,Pi0
 		baudrate = 9600
 )
