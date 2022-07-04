@@ -510,6 +510,14 @@ async def deviceReceiver_from_SCSbus(jqueqe):
 
 						await scsmqtt.post_to_MQTT("/scsshield/device/" + ndevice + "/status", temp )
 
+					# sensori Temperature > 25.5
+					elif((len(trama) == 7) and (trama[1] == b'\xB5') and (type.name == SCS.TYPE_INTERfACCIA.sensori_temperatura.name)):
+						rawtemp = int.from_bytes(trama[4], "big")
+						temp = rawtemp / 10 + 25.6
+						device.Set_Stato(temp)
+
+						await scsmqtt.post_to_MQTT("/scsshield/device/" + ndevice + "/status", temp )
+
 					# campanello
 					elif((len(trama) == 7) and (trama[1] == b'\x91') and (trama[3] == b'\x60') and (trama[4] == b'\x08') and (type.name == SCS.TYPE_INTERfACCIA.campanello_porta.name)):
 						#await scsmqtt.post_to_MQTT("/scsshield/device/" + ndevice + "/status", 1)
