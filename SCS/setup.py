@@ -10,7 +10,7 @@ setup(name='SCS',
     author='Michele',
     author_email='',
     url='https://scsshield.altervista.org/',
-    install_requires=['janus', 'asyncserial', 'asyncio_mqtt', 'tinydb', 'gmqtt', 'uvloop', 'tornado'],
+    install_requires=['janus', 'asyncserial', 'asyncio_mqtt', 'tinydb', 'gmqtt', 'uvloop', 'tornado', 'paho-mqtt'],
     #packages=['janus', 'asyncserial', 'asyncio_mqtt', 'tinydb', 'gmqtt', 'uvloop'],
     python='>=3.6, <4',
     )
