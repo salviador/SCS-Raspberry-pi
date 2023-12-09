@@ -48,12 +48,15 @@ scaricabile nel seguente <a href="https://drive.google.com/file/d/1n9x76HdiFXM_p
 **Installazione**
 * <code>sudo apt full-upgrade</code>
 * <code>sudo apt-get update</code>
+* <code>sudo apt install build-essential git curl</code>
+* Installare Node-Red <code>bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)</code>
+* <code>sudo systemctl enable nodered.service</code>
 * Dal Terminale SSH, digitare <code>git clone https://github.com/salviador/SCS-Raspberry-pi.git</code>
 * <code>cd SCS-Raspberry-pi/SCS/</code>
 * <code>sudo chmod +x setup.sh</code>
 * <code>sudo ./setup.sh</code>
-* <code>sudo pip3 install gmqtt</code>
-* <code>sudo pip3 install uvloop</code>
+* <code>sudo pip3 install gmqtt --break-system-packages</code>
+* <code>sudo pip3 install uvloop --break-system-packages</code>
 * <code>sudo reboot</code>
 * <code>Dopo il riavvio http://raspberrypi.local</code>
 
