@@ -4,6 +4,8 @@ import asyncio
 import time
 import threading
 import queue
+import os
+
 
 class SerialHandler(object):
     def __init__(self, port, baudrate=9600):
@@ -39,7 +41,13 @@ class SerialHandler(object):
         self.adict['ser'].write(line)
 
 async def main():
-    s = SerialHandler('/dev/serial0',9600)
+    nameSerial = '/dev/serial0'
+    name = os.popen("cat /sys/firmware/devicetree/base/model").read()
+    if(name.lower().find("pi 5") > 0):
+        nameSerial = '/dev/ttyAMA0'
+        print("Name hardware = RPI 5")
+
+    s = SerialHandler(nameSerial,9600)
     time.sleep(1)
     print(await s.read())
     while True:

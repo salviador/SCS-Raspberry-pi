@@ -52,7 +52,7 @@ sudo chown -R pi '/'${PWD#*/}
 sudo chmod -R 7777 '/etc/rc.local'
 
 
-sudo python3 setup.py install
-
+#sudo python3 setup.py install
+sudo pip3 install -r requirements.txt --break-system-packages
 
 echo Fine
