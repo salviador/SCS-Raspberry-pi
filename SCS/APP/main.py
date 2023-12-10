@@ -54,8 +54,17 @@ lock_uartTX = asyncio.Lock()
 lock_refresh_Database = asyncio.Lock()
 
 
+
+nameSerial = '/dev/serial0'
+nameHW = os.popen("cat /sys/firmware/devicetree/base/model").read()
+if(nameHW.lower().find("pi 5") > 0):
+	nameSerial = '/dev/ttyAMA0'
+	print("Hardware = RPI 5")
+
+
+
 ser = SerialHandler(
-		port='/dev/serial0', #Replace ttyS0 with ttyAM0 for Pi1,Pi2,Pi0
+		port=nameSerial, #Replace ttyS0 with ttyAM0 for Pi1,Pi2,Pi0
 		baudrate = 9600
 )
 
