@@ -3,7 +3,7 @@
   <h3 align="center">Senza Gateway</h3>
   
   <div align="center">
-    <a href="https://scsshield.altervista.org/">https://scsshield.altervista.org/</a>
+    <a href="http://scsshields.altervista.org/contatti.html">http://scsshields.altervista.org/</a>
   </div>
 </p>
 
